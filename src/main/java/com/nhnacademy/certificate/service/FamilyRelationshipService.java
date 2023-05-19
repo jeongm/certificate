@@ -2,12 +2,14 @@ package com.nhnacademy.certificate.service;
 
 import com.nhnacademy.certificate.domain.entitydto.FamilyRelationshipDto;
 import com.nhnacademy.certificate.domain.requestdto.FamilyRelationshipRegisterRequest;
+import com.nhnacademy.certificate.domain.requestdto.FamilyRelationshipUpdateRequest;
 import com.nhnacademy.certificate.entity.FamilyRelationship;
 import com.nhnacademy.certificate.exception.FamilyRelationshipNotFoundException;
 import com.nhnacademy.certificate.repository.FamilyRelationshipRepository;
 import com.nhnacademy.certificate.repository.ResidentRepository;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.Objects;
 
 @Service
@@ -35,7 +37,7 @@ public class FamilyRelationshipService {
     }
     public void updateFamilyRelationship(Integer baseResidentSerialNumber,
                                          Integer familySerialNumber,
-                                         FamilyRelationshipRegisterRequest familyRelationshipRegisterRequest){
+                                         @Valid FamilyRelationshipUpdateRequest familyRelationshipRequest){
         FamilyRelationshipDto familyRelationshipDto =
                  familyRelationshipRepository.findByFamilyRelationshipPk(new FamilyRelationship.FamilyRelationshipPk(baseResidentSerialNumber,familySerialNumber));
 
@@ -45,8 +47,8 @@ public class FamilyRelationshipService {
 
         FamilyRelationship targetFamilyRelationship = FamilyRelationship.builder()
                 .familyRelationshipPk(new FamilyRelationship.FamilyRelationshipPk(baseResidentSerialNumber,familySerialNumber))
-                .familyRelationshipCode(Objects.isNull(familyRelationshipRegisterRequest.getRelationShip())
-                        ? familyRelationshipDto.getFamilyRelationshipCode() : familyRelationshipRegisterRequest.getRelationShip())
+                .familyRelationshipCode(Objects.isNull(familyRelationshipRequest.getRelationShip())
+                        ? familyRelationshipDto.getFamilyRelationshipCode() : familyRelationshipRequest.getRelationShip())
                 .baseResident(residentRepository.getReferenceById(familyRelationshipDto.getBaseResident().getResidentSerialNumber()))
                 .targetResident(residentRepository.getReferenceById(familyRelationshipDto.getTargetResident().getResidentSerialNumber()))
                 .build();

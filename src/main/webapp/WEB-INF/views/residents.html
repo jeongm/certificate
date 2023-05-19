@@ -6,14 +6,36 @@
     <title>주민 목록</title>
 </head>
 <body>
-<ol>
-    <li th:each="item : ${residents}">
-        <span th:text="${item.name}" />
-        <span><a th:href="@{/family-certificate(resident=${item.residentSerialNumber})}">가족관계증명서 발급</a></span>
-        <span><a th:href="@{/resident-card-certificate(resident=${item.residentSerialNumber})}">주민등록등본 발급</a></span>
-        <span><a th:href="@{/birth-certificate(resident=${item.residentSerialNumber})}">출생신고서 발급</a></span>
-        <span><a th:href="@{/death-certificate(resident=${item.residentSerialNumber})}">사망신고서 발급</a></span>
-    </li>
-</ol>
+
+<table>
+    <thead>
+        <tr>
+            <th>성명</th>
+            <th>증명서 목록</th>
+            <th>발급 기록</th>
+            <th>삭제</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="item : ${residents}">
+            <td th:text="${item.name}"></td>
+            <td>
+                <ul>
+                    <li><a th:href="@{/family-certificate(resident=${item.residentSerialNumber})}">가족관계증명서 발급</a></li>
+                    <li><a th:href="@{/resident-card-certificate/resident(resident=${item.residentSerialNumber})}">주민등록등본 발급</a></li>
+                    <li><a th:href="@{/birth-certificate(resident=${item.residentSerialNumber})}">출생신고서 발급</a></li>
+                    <li><a th:href="@{/death-certificate(resident=${item.residentSerialNumber})}">사망신고서 발급</a></li>
+                </ul>
+            </td>
+            <td><a href="">발급기록</a></td>
+            <td>
+                <form method="post" th:action="@{/residents/delete/{param1}(param1=${item.residentSerialNumber})}">
+                    <button type="submit">삭제</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

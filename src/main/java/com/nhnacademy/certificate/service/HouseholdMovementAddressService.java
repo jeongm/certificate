@@ -2,11 +2,13 @@ package com.nhnacademy.certificate.service;
 
 import com.nhnacademy.certificate.domain.entitydto.HouseholdMovementAddressDto;
 import com.nhnacademy.certificate.domain.requestdto.HouseholdMovementAddressRegisterRequest;
+import com.nhnacademy.certificate.domain.requestdto.HouseholdMovementAddressUpdateRequest;
 import com.nhnacademy.certificate.entity.HouseholdMovementAddress;
 import com.nhnacademy.certificate.exception.HouseholdMovementAddressNotFoundException;
 import com.nhnacademy.certificate.repository.HouseholdMovementAddressRepository;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -31,7 +33,7 @@ public class HouseholdMovementAddressService {
     }
     public void updateHouseholdMovementAddress(Integer householdSerialNumber,
                                                LocalDate reportDate,
-                                               HouseholdMovementAddressRegisterRequest householdMovementAddressRequest) {
+                                               @Valid HouseholdMovementAddressUpdateRequest householdMovementAddressRequest) {
         HouseholdMovementAddressDto householdMovementAddressDto = householdMovementAddressRepository.findByHouseholdMovementAddressPk
                 (new HouseholdMovementAddress.HouseholdMovementAddressPk(householdSerialNumber,reportDate));
 

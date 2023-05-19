@@ -2,12 +2,14 @@ package com.nhnacademy.certificate.service;
 
 import com.nhnacademy.certificate.domain.entitydto.BirthDeathReportResidentDto;
 import com.nhnacademy.certificate.domain.requestdto.BirthDeathReportRegisterRequest;
+import com.nhnacademy.certificate.domain.requestdto.BirthDeathReportUpdateRequest;
 import com.nhnacademy.certificate.entity.BirthDeathReportResident;
 import com.nhnacademy.certificate.exception.ResidentNotFoundException;
 import com.nhnacademy.certificate.repository.BirthDeathReportResidentRepository;
 import com.nhnacademy.certificate.repository.ResidentRepository;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.Objects;
 
 @Service
@@ -42,7 +44,7 @@ public class BirthDeathReportResidentService {
     }
     public void updateBirthReport(Integer reportResidentSerialNumber,
                                   Integer targetSerialNumber,
-                                  BirthDeathReportRegisterRequest birthReportRegisterRequest){
+                                  @Valid BirthDeathReportUpdateRequest birthDeathReportRequest){
         String birthDeathTypeCode = "출생";
 
         BirthDeathReportResidentDto birthReportResidentDto = birthDeathReportResidentRepository.findByBirthDeathReportResidentPk
@@ -54,14 +56,14 @@ public class BirthDeathReportResidentService {
 
         BirthDeathReportResident updateBirthReport = BirthDeathReportResident.builder()
                 .birthDeathReportResidentPk(birthReportResidentDto.getBirthDeathReportResidentPk())
-                .birthDeathReportDate(Objects.isNull(birthReportRegisterRequest.getBirthDeathReportDate())
-                        ? birthReportResidentDto.getBirthDeathReportDate() : birthReportRegisterRequest.getBirthDeathReportDate())
-                .birthReportQualificationsCode(Objects.isNull(birthReportRegisterRequest.getBirthReportQualificationsCode())
-                        ? birthReportResidentDto.getBirthReportQualificationsCode(): birthReportRegisterRequest.getBirthReportQualificationsCode())
-                .emailAddress(Objects.isNull(birthReportRegisterRequest.getEmailAddress())
-                        ? birthReportResidentDto.getEmailAddress() : birthReportRegisterRequest.getEmailAddress())
-                .phoneNumber(Objects.isNull(birthReportRegisterRequest.getPhoneNumber())
-                        ? birthReportResidentDto.getPhoneNumber(): birthReportRegisterRequest.getPhoneNumber())
+                .birthDeathReportDate(Objects.isNull(birthDeathReportRequest.getBirthDeathReportDate())
+                        ? birthReportResidentDto.getBirthDeathReportDate() : birthDeathReportRequest.getBirthDeathReportDate())
+                .birthReportQualificationsCode(Objects.isNull(birthDeathReportRequest.getBirthReportQualificationsCode())
+                        ? birthReportResidentDto.getBirthReportQualificationsCode(): birthDeathReportRequest.getBirthReportQualificationsCode())
+                .emailAddress(Objects.isNull(birthDeathReportRequest.getEmailAddress())
+                        ? birthReportResidentDto.getEmailAddress() : birthDeathReportRequest.getEmailAddress())
+                .phoneNumber(Objects.isNull(birthDeathReportRequest.getPhoneNumber())
+                        ? birthReportResidentDto.getPhoneNumber(): birthDeathReportRequest.getPhoneNumber())
                 .reportResident(residentRepository.getReferenceById(reportResidentSerialNumber))
                 .targetResident(residentRepository.getReferenceById(targetSerialNumber))
                 .build();
@@ -102,7 +104,7 @@ public class BirthDeathReportResidentService {
     }
     public void updateDeathReport(Integer reportResidentSerialNumber,
                                   Integer targetSerialNumber,
-                                  BirthDeathReportRegisterRequest birthReportRegisterRequest){
+                                  @Valid BirthDeathReportUpdateRequest birthDeathReportRequest){
         String birthDeathTypeCode = "사망";
 
         BirthDeathReportResidentDto deathReportResidentDto = birthDeathReportResidentRepository.findByBirthDeathReportResidentPk
@@ -114,14 +116,14 @@ public class BirthDeathReportResidentService {
 
         BirthDeathReportResident updateDeathReport = BirthDeathReportResident.builder()
                 .birthDeathReportResidentPk(deathReportResidentDto.getBirthDeathReportResidentPk())
-                .birthDeathReportDate(Objects.isNull(birthReportRegisterRequest.getBirthDeathReportDate())
-                        ? deathReportResidentDto.getBirthDeathReportDate() : birthReportRegisterRequest.getBirthDeathReportDate())
-                .birthReportQualificationsCode(Objects.isNull(birthReportRegisterRequest.getBirthReportQualificationsCode())
-                        ? deathReportResidentDto.getDeathReportQualificationsCode() : birthReportRegisterRequest.getBirthReportQualificationsCode())
-                .emailAddress(Objects.isNull(birthReportRegisterRequest.getEmailAddress())
-                        ? deathReportResidentDto.getEmailAddress() : birthReportRegisterRequest.getEmailAddress())
-                .phoneNumber(Objects.isNull(birthReportRegisterRequest.getPhoneNumber())
-                        ? deathReportResidentDto.getPhoneNumber(): birthReportRegisterRequest.getPhoneNumber())
+                .birthDeathReportDate(Objects.isNull(birthDeathReportRequest.getBirthDeathReportDate())
+                        ? deathReportResidentDto.getBirthDeathReportDate() : birthDeathReportRequest.getBirthDeathReportDate())
+                .birthReportQualificationsCode(Objects.isNull(birthDeathReportRequest.getBirthReportQualificationsCode())
+                        ? deathReportResidentDto.getDeathReportQualificationsCode() : birthDeathReportRequest.getBirthReportQualificationsCode())
+                .emailAddress(Objects.isNull(birthDeathReportRequest.getEmailAddress())
+                        ? deathReportResidentDto.getEmailAddress() : birthDeathReportRequest.getEmailAddress())
+                .phoneNumber(Objects.isNull(birthDeathReportRequest.getPhoneNumber())
+                        ? deathReportResidentDto.getPhoneNumber(): birthDeathReportRequest.getPhoneNumber())
                 .reportResident(residentRepository.getReferenceById(reportResidentSerialNumber))
                 .targetResident(residentRepository.getReferenceById(targetSerialNumber))
                 .build();
