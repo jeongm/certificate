@@ -1,2 +1,4 @@
-package com.nhnacademy.certificate.repository;public interface RepositoryBase {
+package com.nhnacademy.certificate.repository;
+
+public interface RepositoryBase {
 }

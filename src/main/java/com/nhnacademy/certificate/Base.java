@@ -1,2 +1,4 @@
-package com.nhnacademy.certificate;public interface Base {
+package com.nhnacademy.certificate;
+
+public interface Base {
 }

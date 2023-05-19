@@ -1,9 +1,11 @@
-package com.nhnacademy.certificate;
+package com.nhnacademy.certificate.util;
 
 import com.nhnacademy.certificate.config.RootConfig;
 import com.nhnacademy.certificate.config.WebConfig;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+@Order(2)
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {

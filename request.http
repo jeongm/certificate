@@ -1,0 +1,130 @@
+
+### 주민
+###
+POST localhost:8080/residents
+Content-Type: application/json
+
+{
+  "name": "민현정",
+  "residentRegistrationNumber" : "1234-5678",
+  "genderCode" : "여자",
+  "birthDate" : "1999-07-22T04:11:11",
+  "birthPlaceCode" : "병원",
+  "registrationBaseAddress" : "해남군 해남읍 구교2길"
+}
+
+###
+PUT localhost:8080/residents/8
+Content-Type: application/json
+
+{
+  "name": "민하임"
+}
+
+
+### 가족관계
+###
+POST localhost:8080/residents/8/relationship
+Content-Type: application/json
+
+{
+    "familySerialNumber": 1,
+    "relationShip": "father"
+}
+
+###
+PUT localhost:8080/residents/8/relationship/1
+Content-Type: application/json
+
+{
+    "relationShip": "mother"
+}
+
+###
+DELETE localhost:8080/residents/8/relationship/1
+
+### 출생 신고
+
+POST localhost:8080/residents/2/birth
+Content-Type: application/json
+
+{
+  "targetSerialNumber" : 8,
+  "birthDeathReportDate" : "1999-07-22",
+  "birthReportQualificationsCode" : "자택",
+  "emailAddress" : "m@mm",
+  "phoneNumber" : "010-1234-5678"
+
+}
+
+###
+PUT localhost:8080/residents/2/birth/8
+Content-Type: application/json
+
+{
+  "birthReportQualificationsCode" : "병원"
+}
+
+###
+DELETE localhost:8080/residents/4/birth/7
+
+
+### 사망 신고
+POST localhost:8080/residents/2/death
+Content-Type: application/json
+
+{
+  "targetSerialNumber" : 8,
+  "birthDeathReportDate" : "2023-05-19",
+  "deathReportQualificationsCode" : "자택",
+  "emailAddress" : "m@mm",
+  "phoneNumber" : "010-1234-5678"
+
+}
+
+###
+PUT localhost:8080/residents/2/death/1
+Content-Type: application/json
+
+{
+  "birthDeathReportDate" : "1998-05-19"
+
+}
+
+###
+DELETE localhost:8080/residents/2/death/1
+
+### 세대
+POST localhost:8080/household
+Content-Type: application/json
+
+{
+  "householdCompositionDate" : "2018-08-09",
+  "householdCompositionReasonCode" : "세대분리",
+  "currentHouseMovementAddress" : "광주광역시 동구"
+}
+
+###
+DELETE localhost:8080/household/2
+
+
+### 세대 전입 주소
+POST localhost:8080/household/2/movement
+Content-Type: application/json
+
+{
+  "houseMovementReportDate" : "2023-04-23",
+  "houseMovementAddress" : "광주광역시 조선대학",
+  "lastAddressYn" : "Y"
+}
+
+###
+PUT localhost:8080/household/2movement/2023-05-19
+Content-Type: application/json
+
+{
+  "lastAddressYn" :"N"
+}
+
+###
+DELETE localhost:8080/household/2/movement/2023-05-19

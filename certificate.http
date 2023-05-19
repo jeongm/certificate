@@ -1,0 +1,17 @@
+###
+POST /residents/{serialNumber}/relationship     // 여기 `serialNumber`는 기준 주민의 일련번호
+
+{
+    "familySerialNumber": 123,                  // 대상 가족의 주민 일련번호
+    "relationShip": "father"                    // 부(father),모(mother),배우자(spouse),자녀(child)
+}
+
+###
+PUT /residents/{serialNumber}/relationship/{familySerialNumber}
+
+{
+    "relationShip": "mother"
+}
+
+###
+DELETE /residents/{serialNumber}/relationship/{familySerialNumber}

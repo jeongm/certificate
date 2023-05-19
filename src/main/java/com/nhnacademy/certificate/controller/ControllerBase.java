@@ -1,2 +1,4 @@
-package com.nhnacademy.certificate.controller;public interface ControllerBase {
+package com.nhnacademy.certificate.controller;
+
+public interface ControllerBase {
 }
