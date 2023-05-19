@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter
-public class HouseholdMovementAddressRegisterRequest {
+public class HouseholdMovementAddressUpdateRequest {
     @NotNull
     private LocalDate houseMovementReportDate;
     @NotBlank
