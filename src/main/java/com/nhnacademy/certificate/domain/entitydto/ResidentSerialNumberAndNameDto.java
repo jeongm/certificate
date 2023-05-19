@@ -1,6 +1,6 @@
 package com.nhnacademy.certificate.domain.entitydto;
 
-public interface SimpleResidentDto {
+public interface ResidentSerialNumberAndNameDto {
     Integer getResidentSerialNumber();
     String getName();
 }

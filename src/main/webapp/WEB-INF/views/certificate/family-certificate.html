@@ -2,16 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../resources/static/style.css" />
     <title>Title</title>
 </head>
 <body>
     <table>
         <tbody>
             <tr>
-                <th>가족관계증명서</th>
+                <th colspan="5">가족관계증명서</th>
             </tr>
             <tr>
-                <td>
+                <td colspan="5">
                     <span>발급일: </span>
                     <span />
                     <span>증명서확인번호: </span>
@@ -20,7 +21,7 @@
             </tr>
             <tr>
                 <th colspan="2">등록기준지</th>
-                <td colspan="3">...</td>
+                <td colspan="3"></td>
             </tr>
             <tr>
                 <th>구분</th>
@@ -29,14 +30,13 @@
                 <th>주민등록번호</th>
                 <th>성별</th>
             </tr>
-            <tr>
-                <td>..</td>
-                <td>..</td>
-                <td>..</td>
-                <td>..</td>
-                <td>..</td>
-
-            </tr>
+<!--            <tr th:each="item:${family}">-->
+<!--                <td th:text="${item.}"></td>-->
+<!--                <td th:text="${item.name}"></td>-->
+<!--                <td th:text="${item.}"></td>-->
+<!--                <td th:text="${item.}"></td>-->
+<!--                <td th:text="${item.gender}"></td>-->
+<!--            </tr>-->
         </tbody>
     </table>
 </body>

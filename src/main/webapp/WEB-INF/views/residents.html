@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../resources/static/style.css" />
+    <title>주민 목록</title>
 </head>
 <body>
-$END$
+<ol>
+    <li th:each="item : ${residents}">
+        <span th:text="${item.name}" />
+        <span><a th:href="@{/family-certificate(resident=${item.residentSerialNumber})}">가족관계증명서 발급</a></span>
+        <span><a th:href="@{/resident-card-certificate(resident=${item.residentSerialNumber})}">주민등록등본 발급</a></span>
+        <span><a th:href="@{/birth-certificate(resident=${item.residentSerialNumber})}">출생신고서 발급</a></span>
+        <span><a th:href="@{/death-certificate(resident=${item.residentSerialNumber})}">사망신고서 발급</a></span>
+    </li>
+</ol>
 </body>
 </html>
