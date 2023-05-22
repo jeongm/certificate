@@ -100,6 +100,14 @@ create table certificate_issue
     foreign key (resident_serial_number) references resident(resident_serial_number)
 );
 
+# CREATE TABLE IF NOT EXISTS authorities (
+#      `resident_serial_number`   VARCHAR(50)  NOT NULL,
+#      `authority`   VARCHAR(50)  NOT NULL,
+#
+#      PRIMARY KEY(`resident_serial_number`),
+#      foreign key (resident_serial_number) references resident(resident_serial_number)
+# );
+
 
 -- 3. resident 테이블 데이터 추가
 insert into resident values(1, '남길동', '130914-1234561', '남', '1913-09-14 07:22:00', '자택', '경기도 성남시 분당구 대왕판교로645번길', '2021-04-29 09:03:00', '주택', '강원도 고성군 금강산로 290번길');

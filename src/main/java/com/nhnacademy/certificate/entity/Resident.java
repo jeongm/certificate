@@ -36,13 +36,13 @@ public class Resident {
     @Column(name = "death_place_address")
     private String deathPlaceAddress;
 
-//    @OneToMany(mappedBy = "resident")
-//    private List<BirthDeathReportResident> birthDeathReportResidents;
-//
-//    @OneToMany(mappedBy = "resident")
-//    private List<FamilyRelationship> familyRelationships;
-//
-//    @OneToMany(mappedBy = "resident")
-//    private List<Household> households;
+    @OneToMany(mappedBy = "targetResident")
+    private List<BirthDeathReportResident> birthDeathReportResidents;
+
+    @OneToMany(mappedBy = "targetResident")
+    private List<FamilyRelationship> targetFamilyRelationships;
+
+    @OneToMany(mappedBy = "resident")
+    private List<Household> households;
 
 }

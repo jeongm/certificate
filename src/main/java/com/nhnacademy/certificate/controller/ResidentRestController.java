@@ -12,7 +12,6 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping
 public class ResidentRestController {
 
     private final ResidentService residentService;

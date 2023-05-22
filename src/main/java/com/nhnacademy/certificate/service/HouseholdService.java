@@ -4,8 +4,10 @@ import com.nhnacademy.certificate.domain.requestdto.HouseholdRegisterRequest;
 import com.nhnacademy.certificate.entity.Household;
 import com.nhnacademy.certificate.repository.HouseholdRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class HouseholdService {
 
     private final HouseholdRepository householdRepository;
@@ -25,6 +27,5 @@ public class HouseholdService {
     }
     public void deleteHousehold(Integer householdSerialNumber){
         householdRepository.deleteById(householdSerialNumber);
-        householdRepository.flush();
     }
 }

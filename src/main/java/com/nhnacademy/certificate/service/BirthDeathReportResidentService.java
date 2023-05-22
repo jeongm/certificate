@@ -8,10 +8,12 @@ import com.nhnacademy.certificate.exception.ResidentNotFoundException;
 import com.nhnacademy.certificate.repository.BirthDeathReportResidentRepository;
 import com.nhnacademy.certificate.repository.ResidentRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 import java.util.Objects;
 
+@Transactional
 @Service
 public class BirthDeathReportResidentService {
 
@@ -37,10 +39,9 @@ public class BirthDeathReportResidentService {
                 .phoneNumber(birthReportRegisterRequest.getPhoneNumber())
                 .reportResident(residentRepository.getReferenceById(reportResidentSerialNumber))
                 .targetResident(residentRepository.getReferenceById(birthReportRegisterRequest.getTargetSerialNumber()))
-
                 .build();
 
-        birthDeathReportResidentRepository.saveAndFlush(newBirthReport);
+        birthDeathReportResidentRepository.save(newBirthReport);
     }
     public void updateBirthReport(Integer reportResidentSerialNumber,
                                   Integer targetSerialNumber,
@@ -68,7 +69,7 @@ public class BirthDeathReportResidentService {
                 .targetResident(residentRepository.getReferenceById(targetSerialNumber))
                 .build();
 
-        birthDeathReportResidentRepository.saveAndFlush(updateBirthReport);
+        birthDeathReportResidentRepository.save(updateBirthReport);
 
     }
     public void deleteBirthReport(Integer reportResidentSerialNumber,
@@ -99,7 +100,7 @@ public class BirthDeathReportResidentService {
 
                 .build();
 
-        birthDeathReportResidentRepository.saveAndFlush(newBirthReport);
+        birthDeathReportResidentRepository.save(newBirthReport);
 
     }
     public void updateDeathReport(Integer reportResidentSerialNumber,
@@ -128,7 +129,7 @@ public class BirthDeathReportResidentService {
                 .targetResident(residentRepository.getReferenceById(targetSerialNumber))
                 .build();
 
-        birthDeathReportResidentRepository.saveAndFlush(updateDeathReport);
+        birthDeathReportResidentRepository.save(updateDeathReport);
 
     }
     public void deleteDeathReport(Integer reportResidentSerialNumber,
@@ -141,4 +142,15 @@ public class BirthDeathReportResidentService {
                             (targetSerialNumber,birthDeathTypeCode, reportResidentSerialNumber));
         }
     }
+
+    public boolean exitsBirthReport(Integer targetSerialNumber){
+        return birthDeathReportResidentRepository.existsByTargetResident_ResidentSerialNumberAndBirthDeathReportResidentPk_BirthDeathTypeCode(targetSerialNumber, "출생");
+    }
+
+    public boolean exitsDeathReport(Integer targetSerialNumber){
+        return birthDeathReportResidentRepository.existsByTargetResident_ResidentSerialNumberAndBirthDeathReportResidentPk_BirthDeathTypeCode(targetSerialNumber, "사망");
+    }
+
+
+
 }

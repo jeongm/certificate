@@ -42,8 +42,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
-        registry.addViewController("/family-certificate").setViewName("/certificate/family-certificate");
-        registry.addViewController("/death-certificate").setViewName("/certificate/death-certificate");
+        registry.addViewController("/login").setViewName("login");
     }
 
     @Override
