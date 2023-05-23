@@ -28,7 +28,6 @@ public class Household {
     @JoinColumn(name = "household_resident_serial_number")
     private Resident resident;
 
-
 //    @OneToMany(mappedBy = "household")
 //    private List<HouseholdMovementAddress> householdMovementAddressList;
 
