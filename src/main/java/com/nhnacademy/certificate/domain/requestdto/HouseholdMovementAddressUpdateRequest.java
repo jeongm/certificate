@@ -1,5 +1,6 @@
 package com.nhnacademy.certificate.domain.requestdto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
@@ -8,10 +9,7 @@ import java.time.LocalDate;
 
 @Getter
 public class HouseholdMovementAddressUpdateRequest {
-    @NotNull
     private LocalDate houseMovementReportDate;
-    @NotBlank
     private String houseMovementAddress;
-    @NotBlank
     private String lastAddressYn;
 }

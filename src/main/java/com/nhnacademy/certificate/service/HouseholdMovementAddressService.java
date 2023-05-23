@@ -6,6 +6,8 @@ import com.nhnacademy.certificate.domain.requestdto.HouseholdMovementAddressUpda
 import com.nhnacademy.certificate.entity.HouseholdMovementAddress;
 import com.nhnacademy.certificate.exception.HouseholdMovementAddressNotFoundException;
 import com.nhnacademy.certificate.repository.HouseholdMovementAddressRepository;
+import com.nhnacademy.certificate.repository.HouseholdRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,13 +17,11 @@ import java.util.Objects;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class HouseholdMovementAddressService {
 
     private final HouseholdMovementAddressRepository householdMovementAddressRepository;
-
-    public HouseholdMovementAddressService(HouseholdMovementAddressRepository householdMovementAddressRepository) {
-        this.householdMovementAddressRepository = householdMovementAddressRepository;
-    }
+    private final HouseholdRepository householdRepository;
 
     public void registerHouseholdMovementAddress(Integer householdSerialNumber,
                                                  HouseholdMovementAddressRegisterRequest householdMovementAddressRequest){
@@ -30,6 +30,7 @@ public class HouseholdMovementAddressService {
                         (householdSerialNumber,householdMovementAddressRequest.getHouseMovementReportDate()))
                 .houseMovementAddress(householdMovementAddressRequest.getHouseMovementAddress())
                 .lastAddressYn(householdMovementAddressRequest.getLastAddressYn())
+                .household(householdRepository.getReferenceById(householdSerialNumber))
                 .build();
         householdMovementAddressRepository.save(newHouseholdMovementAddress);
     }

@@ -6,8 +6,8 @@ import com.nhnacademy.certificate.entity.Resident;
 public interface FamilyRelationshipDto {
     FamilyRelationship.FamilyRelationshipPk getfamilyRelationshipPk();
     String getFamilyRelationshipCode();
-    Resident getBaseResident();
-    Resident getTargetResident();
+    ResidentDto getBaseResident();
+    ResidentDto getTargetResident();
 
 
 }

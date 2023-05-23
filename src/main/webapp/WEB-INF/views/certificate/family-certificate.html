@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>가족관계증명서</h1>
-    <table th:object="${familyCertificate}">
+    <table>
         <tbody>
             <tr>
                 <th colspan="5">가족관계증명서</th>
@@ -15,14 +15,14 @@
             <tr>
                 <td colspan="5">
                     <strong>발급일: </strong>
-                    <span th:text="${familyCertificate.issueDate}"/>
+                    <span th:text="${familyCertificate.certificateIssueDate}"/>
                     <strong>증명서확인번호: </strong>
                     <span th:text="${familyCertificate.certificateConfirmationNumber}"/>
                 </td>
             </tr>
             <tr>
                 <th colspan="2">등록기준지</th>
-                <td colspan="3" th:text="${familyCertificate.registrationBaseAddress}"></td>
+                <td colspan="3" th:text="${familyCertificate.baseResident.registrationBaseAddress}"></td>
             </tr>
             <tr>
                 <th>구분</th>
@@ -31,7 +31,7 @@
                 <th>주민등록번호</th>
                 <th>성별</th>
             </tr>
-            <tr th:object="${familyCertificate.baseResident}">
+            <tr>
                 <td>본인</td>
                 <td th:text="${familyCertificate.baseResident.name}"></td>
                 <td th:text="${familyCertificate.baseResident.birthDate}"></td>

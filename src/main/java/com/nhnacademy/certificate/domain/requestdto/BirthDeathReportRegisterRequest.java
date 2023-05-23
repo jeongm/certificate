@@ -11,7 +11,6 @@ import java.time.LocalDate;
 public class BirthDeathReportRegisterRequest {
     @NotNull
     private Integer targetSerialNumber;
-    @NotBlank
     private String birthDeathTypeCode;
     @NotNull
     private LocalDate birthDeathReportDate;

@@ -1,9 +1,9 @@
 package com.nhnacademy.certificate.controller;
 
 import com.nhnacademy.certificate.domain.entitydto.CertificateIssueDto;
-import com.nhnacademy.certificate.domain.responsedto.FamilyCertificateDto;
-import com.nhnacademy.certificate.domain.responsedto.ResidentCertificateDto;
-import com.nhnacademy.certificate.domain.responsedto.ResidentNumberNameReportDto;
+import com.nhnacademy.certificate.domain.viewdto.FamilyCertificateDto;
+import com.nhnacademy.certificate.domain.viewdto.ResidentCertificateDto;
+import com.nhnacademy.certificate.domain.viewdto.ResidentNumberNameReportDto;
 import com.nhnacademy.certificate.service.CertificateIssueService;
 import com.nhnacademy.certificate.service.ResidentService;
 import org.springframework.data.domain.Page;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 public class ResidentController {
@@ -63,7 +62,7 @@ public class ResidentController {
                                          Model model,
                                          @RequestParam(value = "certificateNumber", required = false) Long certificateNumber){
         ResidentCertificateDto residentCertificate = issueService.getResidentCertificate(residentSerialNumber,certificateNumber);
-
+        model.addAttribute("residentCertificate",residentCertificate);
         return "/certificate/resident-certificate";
     }
 

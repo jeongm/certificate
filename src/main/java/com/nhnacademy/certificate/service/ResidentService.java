@@ -3,7 +3,7 @@ package com.nhnacademy.certificate.service;
 import com.nhnacademy.certificate.domain.entitydto.ResidentDto;
 import com.nhnacademy.certificate.domain.requestdto.ResidentRegisterRequest;
 import com.nhnacademy.certificate.domain.requestdto.ResidentUpdateRequest;
-import com.nhnacademy.certificate.domain.responsedto.ResidentNumberNameReportDto;
+import com.nhnacademy.certificate.domain.viewdto.ResidentNumberNameReportDto;
 import com.nhnacademy.certificate.entity.Resident;
 import com.nhnacademy.certificate.exception.ResidentNotFoundException;
 import com.nhnacademy.certificate.repository.BirthDeathReportResidentRepository;
@@ -86,7 +86,11 @@ public class ResidentService {
         residentRepository.deleteById(residentSerialNumber);
     }
 
-
+    /**
+     * 주민목록, 출생 사망 증명서는 있을시 보여줌
+     * @param pageable
+     * @return
+     */
     public Page<ResidentNumberNameReportDto> getResidents(Pageable pageable) {
 
         Page<ResidentDto> result = residentRepository.getAllBy(pageable);
