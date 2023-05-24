@@ -1,12 +1,15 @@
 package com.nhnacademy.certificate.domain.entitydto;
 
-import com.nhnacademy.certificate.entity.Household;
-import com.nhnacademy.certificate.entity.HouseholdMovementAddress;
+import java.time.LocalDate;
 
 public interface HouseholdMovementAddressDto {
-    HouseholdMovementAddress.HouseholdMovementAddressPk getHouseholdMovementAddressPk();
+    HouseholdMovementAddressPk getHouseholdMovementAddressPk();
     String getHouseMovementAddress();
     String getLastAddressYn();
-    Household getHousehold();
+
+    interface HouseholdMovementAddressPk{
+        LocalDate getHouseMovementReportDate();
+
+    }
 
 }

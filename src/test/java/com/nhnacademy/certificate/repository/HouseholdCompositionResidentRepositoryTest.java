@@ -27,7 +27,8 @@ class HouseholdCompositionResidentRepositoryTest {
 
     @Test
     void testFindHouseholdSerialNumber(){
-        assertThat(householdCompositionResidentRepository.findByResident_ResidentSerialNumber(5).getHousehold().getResident().getName()).isEqualTo("1");
+//        assertThat(householdCompositionResidentRepository.findByResident_ResidentSerialNumber(1).getHousehold().getResident().getResidentSerialNumber()).isEqualTo("1");
+        assertThat(householdCompositionResidentRepository.findByResident_ResidentSerialNumber(4).getHousehold().getHouseholdCompositionResidents().get(1).getResident().getName()).isEqualTo("이주은");
     }
 
 }

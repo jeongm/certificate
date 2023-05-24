@@ -44,12 +44,6 @@ Z
 *src/main/webapp/resources/static/style.css,7/6/767d1d223901a017ca4f2b3c28e2cd8ff873b3cd
 s
 Csrc/main/java/com/nhnacademy/certificate/config/SecurityConfig.java,9/d/9d468bfecc7b72e8b251e69ab377098fbd8ff268
-
-Osrc/main/java/com/nhnacademy/certificate/service/FamilyRelationshipService.java,6/f/6fe670bfd578073c76d668a4fbc755d0f38ea978
-â
-Ysrc/test/java/com/nhnacademy/certificate/repository/FamilyRelationshipRepositoryTest.java,2/9/296315cc32f10fc4353a27ae4d0bb2d8723a88ae
-â
-Ysrc/main/java/com/nhnacademy/certificate/service/HouseholdCompositionResidentService.java,8/f/8fbf76edae41885c2d3be8b8beb00b6e78bff648
 n
 >src/main/java/com/nhnacademy/certificate/config/WebConfig.java,4/c/4cac53b19e9b4b89cf2afd457c1e108b55eb2a65
 n
@@ -74,10 +68,6 @@ Ssrc/main/java/com/nhnacademy/certificate/repository/CertificateIssueRepository.
 Usrc/main/java/com/nhnacademy/certificate/repository/FamilyRelationshipRepository.java,5/b/5beb418692d6bfbf9e517303311afd2ff3ca9565
 Ñ
 Tsrc/main/java/com/nhnacademy/certificate/domain/entitydto/FamilyRelationshipDto.java,7/f/7fd1e2e0fb142505312972fec55ecaadd7f83542
-\
-,src/main/webapp/WEB-INF/views/residents.html,a/4/a4af74174b4bdb47ccebe9f226d5e93251aafb1d
-z
-Jsrc/main/java/com/nhnacademy/certificate/domain/entitydto/ResidentDto.java,9/a/9ae258485a9318f0ae00d053622d670e988ac844
 u
 Esrc/main/java/com/nhnacademy/certificate/service/ResidentService.java,4/6/46ba438fca6b9a769c812ad35b8b80fb7b7f5765
 w
@@ -110,17 +100,5 @@ p
 request.http,1/d/1d388eb81fa9aedd77fe8e8a668ee23536a3a6d2
 {
 Ksrc/main/java/com/nhnacademy/certificate/repository/ResidentRepository.java,a/9/a9e350d146f9782e2af73e39000a29fc17a8181a
-
-Osrc/test/java/com/nhnacademy/certificate/repository/ResidentRepositoryTest.java,1/d/1d150c38ac3272046520f3c8f66bcdb4cea2e032
-}
-Msrc/main/java/com/nhnacademy/certificate/entity/BirthDeathReportResident.java,6/4/64138bbc892f5fd0155e92ab1134e83b4ed9df87
-Å
-Qsrc/main/java/com/nhnacademy/certificate/entity/HouseholdCompositionResident.java,0/1/0113e36d3fdad9b25b157559f92c38b793448956
-Ä
-Psrc/test/java/com/nhnacademy/certificate/repository/HouseholdRepositoryTest.java,d/3/d3ea97186c520d911146138f5ccbd4eb9341d404
-Ö
-Usrc/main/java/com/nhnacademy/certificate/service/HouseholdMovementAddressService.java,b/0/b0cf05267c60e2f43b362797f78413682910aa23
-ä
-Zsrc/main/java/com/nhnacademy/certificate/domain/entitydto/HouseholdMovementAddressDto.java,5/2/52a637476d299fae546efa244f2159fcd31e20e9
 q
 Asrc/main/webapp/WEB-INF/views/certificate/family-certificate.html,f/c/fceb92555956967414675e00d8dd22cf129f2cae

@@ -23,7 +23,7 @@ public class HouseholdCompositionResident {
     private Household household;
 
     @MapsId("residentSerialNumber")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "resident_serial_number")
     private Resident resident;
 

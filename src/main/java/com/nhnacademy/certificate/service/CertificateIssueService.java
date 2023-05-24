@@ -1,15 +1,13 @@
 package com.nhnacademy.certificate.service;
 
 import com.nhnacademy.certificate.domain.entitydto.CertificateIssueDto;
-import com.nhnacademy.certificate.domain.entitydto.ResidentDto;
 import com.nhnacademy.certificate.domain.viewdto.FamilyCertificateDto;
-import com.nhnacademy.certificate.domain.viewdto.FamilyResidentDto;
-import com.nhnacademy.certificate.domain.viewdto.HouseholdDto;
+import com.nhnacademy.certificate.domain.viewdto.HouseholdCompositionDto;
 import com.nhnacademy.certificate.domain.viewdto.ResidentCertificateDto;
 import com.nhnacademy.certificate.entity.CertificateIssue;
+import com.nhnacademy.certificate.exception.HouseholdNotFoundException;
 import com.nhnacademy.certificate.repository.CertificateIssueRepository;
 import com.nhnacademy.certificate.repository.HouseholdCompositionResidentRepository;
-import com.nhnacademy.certificate.repository.HouseholdMovementAddressRepository;
 import com.nhnacademy.certificate.repository.ResidentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -92,16 +90,18 @@ public class CertificateIssueService {
         // TODO query 두번 날려서 세대주 전입 기록, 세대 주민 기록 household에서 리스트로 가져옴
 
 
-        HouseholdDto household = householdCompositionResidentRepository.findByResident_ResidentSerialNumber(residentSerialNumber);
-        if(Objects.isNull(household)){
-            return null;
+        HouseholdCompositionDto householdComposition = householdCompositionResidentRepository.findByResident_ResidentSerialNumber(residentSerialNumber);
+        if(Objects.isNull(householdComposition)){
+            throw new HouseholdNotFoundException();
         }
         ResidentCertificateDto residentCertificate = ResidentCertificateDto.builder()
                 .issueDate(certificateIssue.getCertificateIssueDate())
                 .certificateConfirmationNumber(certificateIssue.getCertificateConfirmationNumber())
-                .resident(household.getHousehold().getResident())
-                .householdMovementAddresses(household.getHousehold().getHouseholdMovementAddresses())
-                .householdResidents(household.getHousehold().getHouseholdCompositionResidents())
+                .householdResidentName(householdComposition.getHousehold().getResident().getName())
+                .householdCompositionReasonCode(householdComposition.getHousehold().getHouseholdCompositionReasonCode())
+                .householdCompositionDate(householdComposition.getHousehold().getHouseholdCompositionDate())
+                .householdMovementAddresses(householdComposition.getHousehold().getHouseholdMovementAddresses())
+                .householdResidents(householdComposition.getHousehold().getHouseholdCompositionResidents())
                 .build();
 
         return residentCertificate;
