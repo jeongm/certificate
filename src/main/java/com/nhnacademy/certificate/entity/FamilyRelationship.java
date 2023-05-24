@@ -20,12 +20,12 @@ public class FamilyRelationship {
     private String familyRelationshipCode;
 
     @MapsId("baseResidentSerialNumber")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "base_resident_serial_number")
     private Resident baseResident;
 
     @MapsId("familyResidentSerialNumber")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "family_resident_serial_number")
     private Resident targetResident;
 

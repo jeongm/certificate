@@ -15,27 +15,29 @@
         <tr>
             <td colspan="5">
                 <span>발급일: </span>
-                <span />
+                <span th:text="${residentCertificate.certificateIssueDate}"/>
                 <span>증명서확인번호: </span>
-                <span />
+                <span th:text="${residentCertificate.certificateConfirmationNumber}"/>
             </td>
         </tr>
         </thead>
         <tbody>
             <tr>
                 <th colspan="2"> 세대주 성명</th>
-                <td></td>
-                <th>세대구성사유 및 일자</th>
-                <td></td>
+                <td th:text="${residentCertificate.resident.name}"></td>
+                <th th:each="hma:${residentCertificate.householdMovementAddresses}">세대구성사유 및 일자</th>
+                <td >
+<!--                    <p th:text="${residentCertificate.householdMovementAddresses.household}"/>-->
+                    <p />
+                </td>
             </tr>
             <tr>
                 <th colspan="3">주소</th>
                 <th colspan="2">신고일</th>
             </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr th:each="hma:${residentCertificate.householdMovementAddresses}">
+                <td th:text="${hma.householdMovementAddressPk.householdMovementAddress}"></td>
+                <td th:text="${hma.householdMovementAddressPk.houseMovementReportDate}"></td>
             </tr>
             <tr>
                 <th>세대주 관계</th>
@@ -44,12 +46,12 @@
                 <th>신고일</th>
                 <th>변동사유</th>
             </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr th:each="hma:${residentCertificate.householdResidents}">
+                <td th:text="${hma.householdRelationshipCode}"></td>
+                <td th:text="${hma.residentName}"></td>
+                <td th:text="${hma.residentRegistrationNumber}"></td>
+                <td th:text="${hma.reportDate}"></td>
+                <td th:text="${hma.householdCompositionChangeReasonCode}"></td>
             </tr>
         </tbody>
     </table>

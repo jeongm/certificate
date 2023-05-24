@@ -30,12 +30,12 @@ public class BirthDeathReportResident {
 
 
     @MapsId("residentSerialNumber")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "resident_serial_number")
     private Resident targetResident;
 
     @MapsId("reportResidentSerialNumber")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "report_resident_serial_number")
     private Resident reportResident;
 

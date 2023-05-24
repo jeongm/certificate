@@ -49,10 +49,6 @@ class ResidentRepositoryTest {
 //        assertThat(residentRepository.findByFamilyResident(1).get(0).getGenderCode()).isEqualTo("남");
     }
 
-    @Test
-    void testPage(){
-//        assertThat(residentRepository.getAllBy(pageable).getContent()).isEqualTo("남");
-    }
 
     @Test
     void testGetFamily(){

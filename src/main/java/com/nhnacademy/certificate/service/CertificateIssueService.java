@@ -4,9 +4,11 @@ import com.nhnacademy.certificate.domain.entitydto.CertificateIssueDto;
 import com.nhnacademy.certificate.domain.entitydto.ResidentDto;
 import com.nhnacademy.certificate.domain.viewdto.FamilyCertificateDto;
 import com.nhnacademy.certificate.domain.viewdto.FamilyResidentDto;
+import com.nhnacademy.certificate.domain.viewdto.HouseholdDto;
 import com.nhnacademy.certificate.domain.viewdto.ResidentCertificateDto;
 import com.nhnacademy.certificate.entity.CertificateIssue;
 import com.nhnacademy.certificate.repository.CertificateIssueRepository;
+import com.nhnacademy.certificate.repository.HouseholdCompositionResidentRepository;
 import com.nhnacademy.certificate.repository.HouseholdMovementAddressRepository;
 import com.nhnacademy.certificate.repository.ResidentRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +25,7 @@ import java.util.Objects;
 public class CertificateIssueService {
     private final CertificateIssueRepository certificateIssueRepository;
     private final ResidentRepository residentRepository;
-    private final HouseholdMovementAddressRepository householdMovementAddressRepository;
-
+    private final HouseholdCompositionResidentRepository householdCompositionResidentRepository;
     /**
      * 증명서 발급
      * @param residentSerialNumber
@@ -72,7 +73,12 @@ public class CertificateIssueService {
     }
 
 
-
+    /**
+     * 주민등록등본 발급
+     * @param residentSerialNumber
+     * @param certificateNumber 있는 증명서면 가져옴
+     * @return
+     */
     public ResidentCertificateDto getResidentCertificate(Integer residentSerialNumber, Long certificateNumber){
         CertificateIssueDto certificateIssue;
 
@@ -82,19 +88,21 @@ public class CertificateIssueService {
             certificateIssue = getCertificate(certificateNumber);
         }
 
+        // TODO residentSerialNumber를 기준으로 householdserialnumber뽑고
+        // TODO query 두번 날려서 세대주 전입 기록, 세대 주민 기록 household에서 리스트로 가져옴
+
+
+        HouseholdDto household = householdCompositionResidentRepository.findByResident_ResidentSerialNumber(residentSerialNumber);
+        if(Objects.isNull(household)){
+            return null;
+        }
         ResidentCertificateDto residentCertificate = ResidentCertificateDto.builder()
                 .issueDate(certificateIssue.getCertificateIssueDate())
                 .certificateConfirmationNumber(certificateIssue.getCertificateConfirmationNumber())
-                .householdMovementAddresses(householdMovementAddressRepository.findHouseholdMovementAddresses(5))
+                .resident(household.getHousehold().getResident())
+                .householdMovementAddresses(household.getHousehold().getHouseholdMovementAddresses())
+                .householdResidents(household.getHousehold().getHouseholdCompositionResidents())
                 .build();
-
-        /**
-         * 세대주 성명
-         * 세대구성사유및일자
-         *
-         */
-
-        // 주민에서 세대 가져올까? in?
 
         return residentCertificate;
     }

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public interface HouseholdResidentsDto {
     String getHouseholdRelationshipCode();
-    String getGetResidentName();
+    String getResidentName();
     String getResidentRegistrationNumber();
     LocalDate getReportDate();
     String getHouseholdCompositionChangeReasonCode();

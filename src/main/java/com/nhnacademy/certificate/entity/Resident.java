@@ -42,8 +42,8 @@ public class Resident {
     @OneToMany(mappedBy = "targetResident")
     private List<FamilyRelationship> targetFamilyRelationships;
 
-    @OneToMany(mappedBy = "resident")
-    private List<Household> households;
+//    @OneToMany(mappedBy = "resident")
+//    private List<Household> households;
 
     @OneToMany(mappedBy = "resident")
     List<CertificateIssue> certificateIssueList;
