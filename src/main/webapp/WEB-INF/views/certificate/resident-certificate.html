@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../resources/static/style.css" />
+    <title>Title</title>
+</head>
+<body>
+    <h1>주민등록등본</h1>
+    <table>
+        <thead>
+        <tr>
+            <th colspan="5">주민등록등본</th>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <span>발급일: </span>
+                <span th:text="${residentCertificate.issueDate}"/>
+                <span>증명서확인번호: </span>
+                <span th:text="${residentCertificate.certificateConfirmationNumber}"/>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th colspan="2"> 세대주 성명</th>
+                <td th:text="${residentCertificate.householdResidentName}"></td>
+                <th >세대구성사유 및 일자</th>
+                <td>
+                    <p th:text="${residentCertificate.householdCompositionReasonCode}"/>
+                    <p th:text="${residentCertificate.householdCompositionDate}"/>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="3">주소</th>
+                <th colspan="2">신고일</th>
+            </tr>
+            <tr th:each="hma:${residentCertificate.householdMovementAddresses}">
+                <td th:if="${hma.lastAddressYn=='Y'}" >현주소</td>
+                <td th:if="${hma.lastAddressYn=='N'}" >주소</td>
+                <td colspan="3" th:text="${hma.houseMovementAddress}"></td>
+                <td th:text="${hma.householdMovementAddressPk.houseMovementReportDate}"></td>
+            </tr>
+            <tr>
+                <th>세대주 관계</th>
+                <th>성명</th>
+                <th>주민등록번호</th>
+                <th>신고일</th>
+                <th>변동사유</th>
+            </tr>
+            <tr th:each="hcr:${residentCertificate.householdResidents}">
+                <td th:text="${hcr.householdRelationshipCode}"></td>
+                <td th:text="${hcr.resident.name}"></td>
+                <td th:text="${hcr.resident.residentRegistrationNumber}"></td>
+                <td th:text="${hcr.reportDate}"></td>
+                <td th:text="${hcr.householdCompositionChangeReasonCode}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

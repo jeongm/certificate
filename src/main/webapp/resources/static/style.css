@@ -12,3 +12,7 @@ table {
 th,td {
     border: 1px solid dimgray;
 }
+
+#page {
+    width: 10px;
+}

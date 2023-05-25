@@ -6,6 +6,7 @@
     <title>Title</title>
 </head>
 <body>
+    <h1>가족관계증명서</h1>
     <table>
         <tbody>
             <tr>
@@ -13,15 +14,15 @@
             </tr>
             <tr>
                 <td colspan="5">
-                    <span>발급일: </span>
-                    <span />
-                    <span>증명서확인번호: </span>
-                    <span />
+                    <strong>발급일: </strong>
+                    <span th:text="${familyCertificate.certificateIssueDate}"/>
+                    <strong>증명서확인번호: </strong>
+                    <span th:text="${familyCertificate.certificateConfirmationNumber}"/>
                 </td>
             </tr>
             <tr>
                 <th colspan="2">등록기준지</th>
-                <td colspan="3"></td>
+                <td colspan="3" th:text="${familyCertificate.baseResident.registrationBaseAddress}"></td>
             </tr>
             <tr>
                 <th>구분</th>
@@ -30,13 +31,20 @@
                 <th>주민등록번호</th>
                 <th>성별</th>
             </tr>
-<!--            <tr th:each="item:${family}">-->
-<!--                <td th:text="${item.}"></td>-->
-<!--                <td th:text="${item.name}"></td>-->
-<!--                <td th:text="${item.}"></td>-->
-<!--                <td th:text="${item.}"></td>-->
-<!--                <td th:text="${item.gender}"></td>-->
-<!--            </tr>-->
+            <tr>
+                <td>본인</td>
+                <td th:text="${familyCertificate.baseResident.name}"></td>
+                <td th:text="${familyCertificate.baseResident.birthDate}"></td>
+                <td th:text="${familyCertificate.baseResident.residentRegistrationNumber}"></td>
+                <td th:text="${familyCertificate.baseResident.genderCode}"></td>
+            </tr>
+            <tr th:each="family:${familyCertificate.familyResident}">
+                <td th:text="${family.familyRelationshipCode}"></td>
+                <td th:text="${family.name}"></td>
+                <td th:text="${family.birthDate}"></td>
+                <td th:text="${family.residentRegistrationNumber}"></td>
+                <td th:text="${family.genderCode}"></td>
+            </tr>
         </tbody>
     </table>
 </body>

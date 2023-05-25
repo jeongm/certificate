@@ -18,12 +18,12 @@ public class HouseholdCompositionResident {
     private HouseholdCompositionResidentPk householdCompositionResidentPk;
 
     @MapsId("householdSerialNumber")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "household_serial_number")
     private Household household;
 
     @MapsId("residentSerialNumber")
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "resident_serial_number")
     private Resident resident;
 

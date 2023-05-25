@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @Transactional
@@ -41,8 +40,19 @@ class ResidentRepositoryTest {
                 .registrationBaseAddress("광주 동구 조선대")
                 .build();
         residentRepository.saveAndFlush(newResident);
-
         assertThat(residentRepository.existsById(123)).isNotNull();
+    }
+
+    @Test
+    void test2(){
+
+//        assertThat(residentRepository.findByFamilyResident(1).get(0).getGenderCode()).isEqualTo("남");
+    }
+
+
+    @Test
+    void testGetFamily(){
+//        assertThat(residentRepository.findByFamilyResident(2).get(0).getFamilyRelationshipCode()).isEqualTo("자녀");
     }
 
 

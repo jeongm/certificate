@@ -21,13 +21,13 @@
             <td th:text="${item.name}"></td>
             <td>
                 <ul>
-                    <li><a th:href="@{/family-certificate(resident=${item.residentSerialNumber})}">가족관계증명서 발급</a></li>
-                    <li><a th:href="@{/resident-card-certificate/resident(resident=${item.residentSerialNumber})}">주민등록등본 발급</a></li>
-                    <li><a th:href="@{/birth-certificate(resident=${item.residentSerialNumber})}">출생신고서 발급</a></li>
-                    <li><a th:href="@{/death-certificate(resident=${item.residentSerialNumber})}">사망신고서 발급</a></li>
+                    <li><a th:href="@{/family-certificate/{param1}(param1=${item.residentSerialNumber})}">가족관계증명서 발급</a></li>
+                    <li><a th:href="@{/resident-certificate/{param1}(param1=${item.residentSerialNumber})}">주민등록등본 발급</a></li>
+                    <li th:if="${item.isBirthReport}"><a th:href="@{/birth-certificate/{param1}(param1=${item.residentSerialNumber})}">출생신고서 발급</a></li>
+                    <li th:if="${item.isDeathReport}"><a th:href="@{/death-certificate/{param1}(param1=${item.residentSerialNumber})}">사망신고서 발급</a></li>
                 </ul>
             </td>
-            <td><a href="">발급기록</a></td>
+            <td><a th:href="@{/certificate-issue/{param1}(param1=${item.residentSerialNumber})}">발급기록</a></td>
             <td>
                 <form method="post" th:action="@{/residents/delete/{param1}(param1=${item.residentSerialNumber})}">
                     <button type="submit">삭제</button>
@@ -37,5 +37,15 @@
     </tbody>
 </table>
 
+<div th:if="${residents.totalPages > 0}" class="pagination"
+    th:with="start=${T(java.lang.Math).floor(residents.number/10)*10 + 1},
+                    last=(${start + 9 < residents.totalPages ? start + 9 : residents.totalPages})">
+    <th:block th:each="page:${#numbers.sequence(start,last)}" >
+        <a th:href="@{/admin/residents(page=${page})}"
+           th:text="${page}"
+           th:class="${page==residents.number+1} ? active" class="page" />
+    </th:block>
+
+</div>
 </body>
 </html>

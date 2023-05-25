@@ -8,11 +8,13 @@ import com.nhnacademy.certificate.exception.FamilyRelationshipNotFoundException;
 import com.nhnacademy.certificate.repository.FamilyRelationshipRepository;
 import com.nhnacademy.certificate.repository.ResidentRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 import java.util.Objects;
 
 @Service
+@Transactional
 public class FamilyRelationshipService {
 
     private final FamilyRelationshipRepository familyRelationshipRepository;
@@ -33,7 +35,7 @@ public class FamilyRelationshipService {
                 .baseResident(residentRepository.getReferenceById(baseResidentSerialNumber))
                 .targetResident(residentRepository.getReferenceById(familyRelationshipRegisterRequest.getFamilySerialNumber()))
                 .build();
-        familyRelationshipRepository.saveAndFlush(newFamilyRelationship);
+        familyRelationshipRepository.save(newFamilyRelationship);
     }
     public void updateFamilyRelationship(Integer baseResidentSerialNumber,
                                          Integer familySerialNumber,
@@ -52,14 +54,13 @@ public class FamilyRelationshipService {
                 .baseResident(residentRepository.getReferenceById(familyRelationshipDto.getBaseResident().getResidentSerialNumber()))
                 .targetResident(residentRepository.getReferenceById(familyRelationshipDto.getTargetResident().getResidentSerialNumber()))
                 .build();
-        familyRelationshipRepository.saveAndFlush(targetFamilyRelationship);
+        familyRelationshipRepository.save(targetFamilyRelationship);
 
     }
     public void deleteFamilyRelationship(Integer baseResidentSerialNumber,
                                          Integer familySerialNumber){
         if(familyRelationshipRepository.existsById(new FamilyRelationship.FamilyRelationshipPk(baseResidentSerialNumber,familySerialNumber))) {
             familyRelationshipRepository.deleteById(new FamilyRelationship.FamilyRelationshipPk(baseResidentSerialNumber,familySerialNumber));
-            familyRelationshipRepository.flush();
         }
     }
 }

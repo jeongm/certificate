@@ -17,6 +17,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -24,6 +25,7 @@ import java.util.Properties;
 
 @RequiredArgsConstructor
 @EnableJpaRepositories(basePackageClasses = RepositoryBase.class)
+@EnableTransactionManagement
 @Configuration
 public class JpaConfig {
 
@@ -79,6 +81,7 @@ public class JpaConfig {
         jpaProperties.setProperty("hibernate.use_sql_comments","true");
         jpaProperties.setProperty("hibernate.globally_quoted_identifiers","true");
         jpaProperties.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
+        jpaProperties.setProperty("hibernate.highlight_sql", "true");
 
         return jpaProperties;
     }

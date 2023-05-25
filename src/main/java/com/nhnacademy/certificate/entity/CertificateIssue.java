@@ -17,7 +17,7 @@ public class CertificateIssue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "certificate_confirmation_number")
     private Long certificateConfirmationNumber;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "resident_serial_number")
     private Resident resident;
     @Column(name = "certificate_type_code")

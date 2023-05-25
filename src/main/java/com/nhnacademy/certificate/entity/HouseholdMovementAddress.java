@@ -23,7 +23,7 @@ public class HouseholdMovementAddress {
     private String lastAddressYn;
 
     @MapsId("householdSerialNumber")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "household_serial_number")
     private Household household;
 

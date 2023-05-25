@@ -1,6 +1,7 @@
 package com.nhnacademy.certificate.domain.entitydto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface ResidentDto {
     Integer getResidentSerialNumber();
@@ -13,5 +14,6 @@ public interface ResidentDto {
     LocalDateTime getDeathDate();
     String getDeathPlaceCode();
     String getDeathPlaceAddress();
+
 
 }

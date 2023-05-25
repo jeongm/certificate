@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -24,11 +26,14 @@ public class Household {
     @Column(name = "current_house_movement_address")
     private String currentHouseMovementAddress;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "household_resident_serial_number")
     private Resident resident;
 
-//    @OneToMany(mappedBy = "household")
-//    private List<HouseholdMovementAddress> householdMovementAddressList;
+    @OneToMany(mappedBy = "household")
+    private Set<HouseholdMovementAddress> householdMovementAddresses;
+
+    @OneToMany(mappedBy = "household")
+    private Set<HouseholdCompositionResident> householdCompositionResidents;
 
 }

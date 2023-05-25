@@ -14,4 +14,6 @@ public class HouseholdRegisterRequest {
     private String householdCompositionReasonCode;
     @NotBlank
     private String currentHouseMovementAddress;
+    @NotNull
+    private Integer householdResidentSerialNumber;
 }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../resources/static/style.css" />
+    <title>발급 목록</title>
+</head>
+<body>
+    <h1>발급 목록</h1>
+    <table>
+        <thead>
+        <tr>
+            <th colspan="3">발급목록</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th >발급일</th>
+                <th >증명서확인번호</th>
+                <th>증명서</th>
+            </tr>
+            <tr th:each="issue : ${issueList}">
+                <td th:text="${issue.certificateIssueDate}"></td>
+                <td th:text="${issue.certificateConfirmationNumber}"></td>
+                <td><a th:if="${issue.certificateTypeCode == '가족관계증명서'}"
+                       th:href="@{/family-certificate/{param1}(param1=${resident},certificateNumber=${issue.certificateConfirmationNumber})}"
+                       th:text="${issue.certificateTypeCode}"></a>
+                    <a th:if="${issue.certificateTypeCode == '주민등록등본'}"
+                       th:href="@{/resident-certificate/{param1}(param1=${resident},param2=${issue.certificateConfirmationNumber})}"
+                       th:text="${issue.certificateTypeCode}"></a>
+                    <a th:if="${issue.certificateTypeCode == '출생신고서'}"
+                       th:href="@{/birth-certificate/{param1}(param1=${resident},param2=${issue.certificateConfirmationNumber})}"
+                       th:text="${issue.certificateTypeCode}"></a>
+                    <a th:if="${issue.certificateTypeCode == '사망신고서'}"
+                       th:href="@{/death-certificate/{param1}(param1=${resident},param2=${issue.certificateConfirmationNumber})}"
+                       th:text="${issue.certificateTypeCode}"></a>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</body>
+</html>

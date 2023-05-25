@@ -3,6 +3,7 @@ package com.nhnacademy.certificate.controller;
 import com.nhnacademy.certificate.domain.requestdto.*;
 import com.nhnacademy.certificate.exception.ValidationFailedException;
 import com.nhnacademy.certificate.service.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -12,7 +13,6 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping
 public class ResidentRestController {
 
     private final ResidentService residentService;
@@ -192,7 +192,7 @@ public class ResidentRestController {
 
     @PutMapping("/household/{householdSerialNumber}/movement/{reportDate}")
     public ResponseEntity<Void> doUpdateHouseholdMovementAddress(@PathVariable("householdSerialNumber") Integer householdSerialNumber,
-                                                                 @PathVariable("reportDate") LocalDate reportDate,
+                                                                 @PathVariable("reportDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate reportDate,
                                                                  @Valid @RequestBody HouseholdMovementAddressUpdateRequest householdMovementAddressUpdateRequest,
                                                                  BindingResult bindingResult){
         if(bindingResult.hasErrors()){
@@ -205,7 +205,7 @@ public class ResidentRestController {
 
     @DeleteMapping("/household/{householdSerialNumber}/movement/{reportDate}")
     public ResponseEntity<Void> doDeleteHouseholdMovementAddress(@PathVariable("householdSerialNumber") Integer householdSerialNumber,
-                                                                 @PathVariable("reportDate") LocalDate reportDate){
+                                                                 @PathVariable("reportDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate reportDate){
         householdMovementAddressService.deleteHouseholdMovementAddress(householdSerialNumber,reportDate);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
