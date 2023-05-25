@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -30,9 +31,9 @@ public class Household {
     private Resident resident;
 
     @OneToMany(mappedBy = "household")
-    private List<HouseholdMovementAddress> householdMovementAddresses;
+    private Set<HouseholdMovementAddress> householdMovementAddresses;
 
     @OneToMany(mappedBy = "household")
-    private List<HouseholdCompositionResident> householdCompositionResidents;
+    private Set<HouseholdCompositionResident> householdCompositionResidents;
 
 }

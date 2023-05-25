@@ -40,11 +40,11 @@
 <div th:if="${residents.totalPages > 0}" class="pagination"
     th:with="start=${T(java.lang.Math).floor(residents.number/10)*10 + 1},
                     last=(${start + 9 < residents.totalPages ? start + 9 : residents.totalPages})">
-
-    <a th:each="page:${#numbers.sequence(start,last)}"
-       th:href="@{/admin/residents(page=${page})}"
-       th:text="${page}"
-       th:class="${page==residents.number+1} ? active" class="page"></a>
+    <th:block th:each="page:${#numbers.sequence(start,last)}" >
+        <a th:href="@{/admin/residents(page=${page})}"
+           th:text="${page}"
+           th:class="${page==residents.number+1} ? active" class="page" />
+    </th:block>
 
 </div>
 </body>

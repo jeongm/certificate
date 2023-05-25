@@ -1,6 +1,8 @@
 package com.nhnacademy.certificate.service;
 
 import com.nhnacademy.certificate.domain.entitydto.CertificateIssueDto;
+import com.nhnacademy.certificate.domain.entitydto.HouseholdMovementAddressDto;
+import com.nhnacademy.certificate.domain.viewdto.BirthCertificateDto;
 import com.nhnacademy.certificate.domain.viewdto.FamilyCertificateDto;
 import com.nhnacademy.certificate.domain.viewdto.HouseholdCompositionDto;
 import com.nhnacademy.certificate.domain.viewdto.ResidentCertificateDto;
@@ -14,8 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -100,11 +104,35 @@ public class CertificateIssueService {
                 .householdResidentName(householdComposition.getHousehold().getResident().getName())
                 .householdCompositionReasonCode(householdComposition.getHousehold().getHouseholdCompositionReasonCode())
                 .householdCompositionDate(householdComposition.getHousehold().getHouseholdCompositionDate())
-                .householdMovementAddresses(householdComposition.getHousehold().getHouseholdMovementAddresses())
+                .householdMovementAddresses(householdComposition
+                        .getHousehold()
+                        .getHouseholdMovementAddresses()
+                        .stream()
+                        .sorted(Comparator.comparing((HouseholdMovementAddressDto householdMovementAddressDto) ->
+                                householdMovementAddressDto.getHouseholdMovementAddressPk().getHouseMovementReportDate()).reversed())
+                        .collect(Collectors.toList()))
                 .householdResidents(householdComposition.getHousehold().getHouseholdCompositionResidents())
                 .build();
 
         return residentCertificate;
+    }
+
+    /**
+     * 출생증명서
+     * @param residentSerialNumber 대상자 시리얼번호
+     * @return
+     */
+    public BirthCertificateDto getBirthCertificate(Integer residentSerialNumber){
+
+        Long certificateIssueSerialNumber = createCertificate(residentSerialNumber,"출생신고서");
+        CertificateIssueDto certificateIssue = getCertificate(certificateIssueSerialNumber);
+
+        BirthCertificateDto birthCertificate = BirthCertificateDto.builder()
+                .certificateConfirmationNumber(certificateIssue.getCertificateConfirmationNumber())
+                .issueDate(certificateIssue.getCertificateIssueDate())
+                .build();
+
+        return birthCertificate;
     }
 
 

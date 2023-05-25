@@ -1,6 +1,7 @@
 package com.nhnacademy.certificate.controller;
 
 import com.nhnacademy.certificate.domain.entitydto.CertificateIssueDto;
+import com.nhnacademy.certificate.domain.viewdto.BirthCertificateDto;
 import com.nhnacademy.certificate.domain.viewdto.FamilyCertificateDto;
 import com.nhnacademy.certificate.domain.viewdto.ResidentCertificateDto;
 import com.nhnacademy.certificate.domain.viewdto.ResidentNumberNameReportDto;
@@ -67,7 +68,10 @@ public class ResidentController {
     }
 
     @GetMapping("/birth-certificate/{serialNumber}")
-    public String getBirthCertificate(@PathVariable("serialNumber") Integer residentSerialNumber){
+    public String getBirthCertificate(@PathVariable("serialNumber") Integer residentSerialNumber,
+                                      Model model){
+        BirthCertificateDto birthCertificate = issueService.getBirthCertificate(residentSerialNumber);
+        model.addAttribute("birthCertificate",birthCertificate);
         return "/certificate/birth-certificate";
     }
 
