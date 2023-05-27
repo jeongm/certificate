@@ -1,6 +1,6 @@
 package com.nhnacademy.certificate.domain.viewdto;
 
-import com.nhnacademy.certificate.domain.entitydto.HouseholdMovementAddressDto;
+import com.nhnacademy.certificate.domain.restviewdto.HouseholdMovementAddressDto;
 import lombok.Builder;
 import lombok.Getter;
 

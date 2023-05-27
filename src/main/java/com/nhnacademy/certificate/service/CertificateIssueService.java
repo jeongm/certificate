@@ -1,16 +1,11 @@
 package com.nhnacademy.certificate.service;
 
-import com.nhnacademy.certificate.domain.entitydto.CertificateIssueDto;
-import com.nhnacademy.certificate.domain.entitydto.HouseholdMovementAddressDto;
-import com.nhnacademy.certificate.domain.viewdto.BirthCertificateDto;
-import com.nhnacademy.certificate.domain.viewdto.FamilyCertificateDto;
-import com.nhnacademy.certificate.domain.viewdto.HouseholdCompositionDto;
-import com.nhnacademy.certificate.domain.viewdto.ResidentCertificateDto;
+import com.nhnacademy.certificate.domain.restviewdto.CertificateIssueDto;
+import com.nhnacademy.certificate.domain.restviewdto.HouseholdMovementAddressDto;
+import com.nhnacademy.certificate.domain.viewdto.*;
 import com.nhnacademy.certificate.entity.CertificateIssue;
 import com.nhnacademy.certificate.exception.HouseholdNotFoundException;
-import com.nhnacademy.certificate.repository.CertificateIssueRepository;
-import com.nhnacademy.certificate.repository.HouseholdCompositionResidentRepository;
-import com.nhnacademy.certificate.repository.ResidentRepository;
+import com.nhnacademy.certificate.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +23,11 @@ public class CertificateIssueService {
     private final CertificateIssueRepository certificateIssueRepository;
     private final ResidentRepository residentRepository;
     private final HouseholdCompositionResidentRepository householdCompositionResidentRepository;
+    private final BirthDeathReportResidentRepository birthDeathReportResidentRepository;
+    private final FamilyRelationshipRepository familyRelationshipRepository;
+
+
+
     /**
      * 증명서 발급
      * @param residentSerialNumber
@@ -90,10 +90,6 @@ public class CertificateIssueService {
             certificateIssue = getCertificate(certificateNumber);
         }
 
-        // TODO residentSerialNumber를 기준으로 householdserialnumber뽑고
-        // TODO query 두번 날려서 세대주 전입 기록, 세대 주민 기록 household에서 리스트로 가져옴
-
-
         HouseholdCompositionDto householdComposition = householdCompositionResidentRepository.findByResident_ResidentSerialNumber(residentSerialNumber);
         if(Objects.isNull(householdComposition)){
             throw new HouseholdNotFoundException();
@@ -125,16 +121,35 @@ public class CertificateIssueService {
     public BirthCertificateDto getBirthCertificate(Integer residentSerialNumber){
 
         Long certificateIssueSerialNumber = createCertificate(residentSerialNumber,"출생신고서");
-        CertificateIssueDto certificateIssue = getCertificate(certificateIssueSerialNumber);
 
         BirthCertificateDto birthCertificate = BirthCertificateDto.builder()
-                .certificateConfirmationNumber(certificateIssue.getCertificateConfirmationNumber())
-                .issueDate(certificateIssue.getCertificateIssueDate())
+                .birthReportResident(birthDeathReportResidentRepository
+                        .findByBirthDeathReportResidentPk_ResidentSerialNumberAndBirthDeathReportResidentPk_BirthDeathTypeCode
+                                (residentSerialNumber,"출생"))
+                .father(familyRelationshipRepository.findFamilyResident(residentSerialNumber,"부"))// familyresident- 출생자 기준
+                .mother(familyRelationshipRepository.findFamilyResident(residentSerialNumber,"모")) /// familyresident- 출생자 기준
                 .build();
 
         return birthCertificate;
     }
 
+
+    /**
+     * 사망신고서
+     * @param residentSerialNumber 대상자 시리얼번호
+     * @return
+     */
+    public BirthDeathReportResidentDto getDeathCertificate(Integer residentSerialNumber){
+
+        Long certificateIssueSerialNumber = createCertificate(residentSerialNumber,"사망신고서");
+
+        BirthDeathReportResidentDto deathCertificate =
+                birthDeathReportResidentRepository
+                        .findByBirthDeathReportResidentPk_ResidentSerialNumberAndBirthDeathReportResidentPk_BirthDeathTypeCode
+                                (residentSerialNumber,"사망");
+
+        return deathCertificate;
+    }
 
     /**
      *

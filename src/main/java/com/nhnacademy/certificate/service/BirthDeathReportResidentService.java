@@ -1,6 +1,6 @@
 package com.nhnacademy.certificate.service;
 
-import com.nhnacademy.certificate.domain.entitydto.BirthDeathReportResidentDto;
+import com.nhnacademy.certificate.domain.restviewdto.BirthDeathReportResidentDto;
 import com.nhnacademy.certificate.domain.requestdto.BirthDeathReportRegisterRequest;
 import com.nhnacademy.certificate.domain.requestdto.BirthDeathReportUpdateRequest;
 import com.nhnacademy.certificate.entity.BirthDeathReportResident;

@@ -1,6 +1,6 @@
 package com.nhnacademy.certificate.service;
 
-import com.nhnacademy.certificate.domain.entitydto.FamilyRelationshipDto;
+import com.nhnacademy.certificate.domain.restviewdto.FamilyRelationshipDto;
 import com.nhnacademy.certificate.domain.requestdto.FamilyRelationshipRegisterRequest;
 import com.nhnacademy.certificate.domain.requestdto.FamilyRelationshipUpdateRequest;
 import com.nhnacademy.certificate.entity.FamilyRelationship;

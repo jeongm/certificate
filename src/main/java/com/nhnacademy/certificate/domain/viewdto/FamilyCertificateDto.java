@@ -1,6 +1,6 @@
 package com.nhnacademy.certificate.domain.viewdto;
 
-import com.nhnacademy.certificate.domain.entitydto.ResidentDto;
+import com.nhnacademy.certificate.domain.restviewdto.ResidentDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

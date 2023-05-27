@@ -1,9 +1,7 @@
 package com.nhnacademy.certificate.domain.viewdto;
 
 
-import com.nhnacademy.certificate.domain.entitydto.HouseholdDto;
-
-import java.util.List;
+import com.nhnacademy.certificate.domain.restviewdto.HouseholdDto;
 
 public interface HouseholdCompositionDto {
     HouseholdDto getHousehold();

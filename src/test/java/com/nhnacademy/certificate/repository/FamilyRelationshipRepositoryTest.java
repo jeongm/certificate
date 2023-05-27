@@ -11,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
@@ -26,5 +27,6 @@ class FamilyRelationshipRepositoryTest {
 
     @Test
     void testFindFamilyResident() {
+        assertThat(familyRelationshipRepository.findFamilyResident(7,"부").getName()).isEqualTo("남기준");
     }
 }

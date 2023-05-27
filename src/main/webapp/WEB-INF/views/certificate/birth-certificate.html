@@ -10,63 +10,64 @@
     <table>
         <tbody>
             <tr>
-                <th>출생신고</th>
+                <th colspan="7">
+                    <p>출생신고서</p>
+                    <p>
+                        <span>신고일 :</span>
+                        <span th:text="${birthCertificate.birthReportResident.birthDeathReportDate}"/>
+                    </p>
+                </th>
             </tr>
             <tr>
-                <td>
-                <th colspan="6">신고일 : </th>
-                </td>
-            </tr>
-            <tr>
-                <th rowspan="4">사망자</th>
+                <th rowspan="4">출생자</th>
                 <th colspan="2">성명</th>
-                <td></td>
+                <td th:text="${birthCertificate.birthReportResident.targetResident.name}" />
                 <th>성별</th>
-                <td></td>
+                <td th:text="${birthCertificate.birthReportResident.targetResident.genderCode}" />
             </tr>
             <tr>
                 <th colspan="2">출생일시</th>
-                <td colspan="3"></td>
+                <td colspan="3" th:text="${birthCertificate.birthReportResident.targetResident.birthDate}"></td>
             </tr>
             <tr>
                 <th colspan="2">출생장소</th>
-                <td colspan="3"></td>
+                <td colspan="3" th:text="${birthCertificate.birthReportResident.targetResident.birthPlaceCode}"></td>
             </tr>
             <tr>
                 <th colspan="2">등록기준지</th>
-                <td colspan="3"></td>
+                <td colspan="3" th:text="${birthCertificate.birthReportResident.targetResident.registrationBaseAddress}"></td>
             </tr>
             <tr>
                 <th rowspan="2">부모</th>
                 <th>부</th>
                 <th>성명</th>
-                <td></td>
+                <td th:text="${birthCertificate.father.name}" />
                 <th>주민등록번호</th>
-                <td></td>
+                <td th:text="${birthCertificate.father.residentRegistrationNumber}" />
             </tr>
             <tr>
                 <th>모</th>
                 <th>성명</th>
-                <td></td>
+                <td th:text="${birthCertificate.mother.name}" />
                 <th>주민등록번호</th>
-                <td></td>
+                <td th:text="${birthCertificate.mother.residentRegistrationNumber}" />
             </tr>
             <tr>
                 <th rowspan="3">신고인</th>
                 <th colspan="2">성명</th>
-                <td></td>
+                <td th:text="${birthCertificate.birthReportResident.reportResident.name}" />
                 <th>주민등록번호</th>
-                <td></td>
+                <td th:text="${birthCertificate.birthReportResident.reportResident.residentRegistrationNumber}" />
             </tr>
             <tr>
                 <th colspan="2">자격</th>
-                <td colspan="3"></td>
+                <td colspan="3" th:text="${birthCertificate.birthReportResident.birthReportQualificationsCode}" />
             </tr>
             <tr>
                 <th colspan="2">이메일</th>
-                <td></td>
-                <th colspan="2">전화번호</th>
-                <td></td>
+                <td th:text="${birthCertificate.birthReportResident.emailAddress}" />
+                <th>전화번호</th>
+                <td th:text="${birthCertificate.birthReportResident.phoneNumber}" />
             </tr>
         </tbody>
     </table>

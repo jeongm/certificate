@@ -23,16 +23,12 @@
                 <td th:text="${issue.certificateIssueDate}"></td>
                 <td th:text="${issue.certificateConfirmationNumber}"></td>
                 <td><a th:if="${issue.certificateTypeCode == '가족관계증명서'}"
-                       th:href="@{/family-certificate/{param1}(param1=${resident},certificateNumber=${issue.certificateConfirmationNumber})}"
                        th:text="${issue.certificateTypeCode}"></a>
                     <a th:if="${issue.certificateTypeCode == '주민등록등본'}"
-                       th:href="@{/resident-certificate/{param1}(param1=${resident},param2=${issue.certificateConfirmationNumber})}"
                        th:text="${issue.certificateTypeCode}"></a>
                     <a th:if="${issue.certificateTypeCode == '출생신고서'}"
-                       th:href="@{/birth-certificate/{param1}(param1=${resident},param2=${issue.certificateConfirmationNumber})}"
                        th:text="${issue.certificateTypeCode}"></a>
                     <a th:if="${issue.certificateTypeCode == '사망신고서'}"
-                       th:href="@{/death-certificate/{param1}(param1=${resident},param2=${issue.certificateConfirmationNumber})}"
                        th:text="${issue.certificateTypeCode}"></a>
                 </td>
             </tr>

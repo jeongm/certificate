@@ -1,6 +1,6 @@
 package com.nhnacademy.certificate.service;
 
-import com.nhnacademy.certificate.domain.entitydto.HouseholdMovementAddressDto;
+import com.nhnacademy.certificate.domain.restviewdto.HouseholdMovementAddressDto;
 import com.nhnacademy.certificate.domain.requestdto.HouseholdMovementAddressRegisterRequest;
 import com.nhnacademy.certificate.domain.requestdto.HouseholdMovementAddressUpdateRequest;
 import com.nhnacademy.certificate.entity.HouseholdMovementAddress;

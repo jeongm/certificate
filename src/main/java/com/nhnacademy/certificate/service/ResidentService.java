@@ -1,6 +1,6 @@
 package com.nhnacademy.certificate.service;
 
-import com.nhnacademy.certificate.domain.entitydto.ResidentDto;
+import com.nhnacademy.certificate.domain.restviewdto.ResidentDto;
 import com.nhnacademy.certificate.domain.requestdto.ResidentRegisterRequest;
 import com.nhnacademy.certificate.domain.requestdto.ResidentUpdateRequest;
 import com.nhnacademy.certificate.domain.viewdto.ResidentNumberNameReportDto;

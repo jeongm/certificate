@@ -1,4 +1,4 @@
-package com.nhnacademy.certificate.domain.entitydto;
+package com.nhnacademy.certificate.domain.restviewdto;
 
 import com.nhnacademy.certificate.entity.BirthDeathReportResident;
 

@@ -1,10 +1,7 @@
 package com.nhnacademy.certificate.repository;
 
-import com.nhnacademy.certificate.domain.entitydto.ResidentDto;
+import com.nhnacademy.certificate.domain.restviewdto.ResidentDto;
 import com.nhnacademy.certificate.domain.viewdto.FamilyResidentDto;
-import com.nhnacademy.certificate.domain.viewdto.HouseholdNumberDto;
-import com.nhnacademy.certificate.entity.Household;
-import com.nhnacademy.certificate.entity.HouseholdCompositionResident;
 import com.nhnacademy.certificate.entity.Resident;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,5 +21,4 @@ public interface ResidentRepository extends JpaRepository<Resident,Integer> {
 
     Page<ResidentDto> getAllBy(Pageable pageable);
 
-//    HouseholdCompositionResident getByResidentSerialNumber(Integer residentSerialNumber);
 }

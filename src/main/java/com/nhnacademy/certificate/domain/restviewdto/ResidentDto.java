@@ -1,7 +1,6 @@
-package com.nhnacademy.certificate.domain.entitydto;
+package com.nhnacademy.certificate.domain.restviewdto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public interface ResidentDto {
     Integer getResidentSerialNumber();

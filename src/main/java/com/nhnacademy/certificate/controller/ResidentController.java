@@ -1,10 +1,7 @@
 package com.nhnacademy.certificate.controller;
 
-import com.nhnacademy.certificate.domain.entitydto.CertificateIssueDto;
-import com.nhnacademy.certificate.domain.viewdto.BirthCertificateDto;
-import com.nhnacademy.certificate.domain.viewdto.FamilyCertificateDto;
-import com.nhnacademy.certificate.domain.viewdto.ResidentCertificateDto;
-import com.nhnacademy.certificate.domain.viewdto.ResidentNumberNameReportDto;
+import com.nhnacademy.certificate.domain.restviewdto.CertificateIssueDto;
+import com.nhnacademy.certificate.domain.viewdto.*;
 import com.nhnacademy.certificate.service.CertificateIssueService;
 import com.nhnacademy.certificate.service.ResidentService;
 import org.springframework.data.domain.Page;
@@ -76,7 +73,10 @@ public class ResidentController {
     }
 
     @GetMapping("/death-certificate/{serialNumber}")
-    public String getDeathCertificate(@PathVariable("serialNumber") Integer residentSerialNumber){
+    public String getDeathCertificate(@PathVariable("serialNumber") Integer residentSerialNumber,
+                                      Model model){
+        BirthDeathReportResidentDto deathCertificate = issueService.getDeathCertificate(residentSerialNumber);
+        model.addAttribute("deathCertificate",deathCertificate);
         return "/certificate/death-certificate";
     }
 
