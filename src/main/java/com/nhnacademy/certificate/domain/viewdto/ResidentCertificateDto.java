@@ -15,7 +15,6 @@ public class ResidentCertificateDto {
 
     private String householdCompositionReasonCode;
     private LocalDate householdCompositionDate;
-//    private String currentHouseMovementAddress;
 
     private List<HouseholdMovementAddressDto> householdMovementAddresses;
     private List<HouseholdCompositionResidentsDto> householdResidents;

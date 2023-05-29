@@ -7,19 +7,18 @@
 </head>
 <body>
 <th:block th:include="fragments/heading" />
-
-    <h1>발급 목록</h1>
     <table>
+        <caption><h1>발급 목록</h1></caption>
         <thead>
         <tr>
-            <th colspan="3">발급목록</th>
+            <th scope="col" colspan="3">발급목록</th>
         </tr>
         </thead>
         <tbody>
             <tr>
-                <th >발급일</th>
-                <th >증명서확인번호</th>
-                <th>증명서</th>
+                <th scope="col">발급일</th>
+                <th scope="col">증명서확인번호</th>
+                <th scope="col" >증명서</th>
             </tr>
             <tr th:each="issue : ${issueList}">
                 <td th:text="${issue.certificateIssueDate}"></td>
@@ -37,5 +36,16 @@
 
         </tbody>
     </table>
+
+<div th:if="${issueList.totalPages > 0}" class="pagination"
+     th:with="start=${T(java.lang.Math).floor(issueList.number/10)*10 + 1},
+                    last=(${start + 9 < issueList.totalPages ? start + 9 : issueList.totalPages})">
+    <th:block th:each="page:${#numbers.sequence(start,last)}" >
+        <a th:href="@{/certificate/certificate-issue/{param1}(param1=${resident}, page=${page})}"
+           th:text="${page}"
+           th:class="${page==issueList.number+1} ? active" class="page" />
+    </th:block>
+
+</div>
 </body>
 </html>

@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
@@ -27,13 +26,14 @@ public class SecurityConfig {
         return http.authorizeHttpRequests()
                     .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                     .requestMatchers("/certificate").hasAuthority("ROLE_MEMBER")
+                    .requestMatchers("/certificate/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
                     .requestMatchers("/redirect-index").authenticated()
                     .anyRequest().permitAll()
                     .and()
                 .formLogin()
                     .usernameParameter("id")
                     .passwordParameter("password")
-                    .loginPage("/certificate/login")
+                    .loginPage("/certificate-login")
                     .loginProcessingUrl("/login")
                     .successHandler(new CustomLoginSuccessHandler())
                     .and()
@@ -47,7 +47,7 @@ public class SecurityConfig {
                     .invalidateHttpSession(true)
                     .and()
                 .csrf()
-                    .and()
+                    .disable()
                 .exceptionHandling()
                     .accessDeniedPage("/error/403")
                     .and()

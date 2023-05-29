@@ -7,6 +7,8 @@ import com.nhnacademy.certificate.entity.CertificateIssue;
 import com.nhnacademy.certificate.exception.HouseholdNotFoundException;
 import com.nhnacademy.certificate.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,49 +54,36 @@ public class CertificateIssueService {
     /**
      *
      * @param residentSerialNumber
-     * @param certificateNumber 증명서 번호가 있을 시 가져옴, 그 외에는 발급
      * @return 가족관계증명서
      */
-    public FamilyCertificateDto getFamilyCertificate(Integer residentSerialNumber, Long certificateNumber){
-        CertificateIssueDto certificateIssue;
+    public FamilyCertificateDto getFamilyCertificate(Integer residentSerialNumber){
+        CertificateIssueDto certificateIssue= getCertificate(createCertificate(residentSerialNumber,"가족관계증명서"));
 
-        if(Objects.isNull(certificateNumber)){
-            certificateIssue = getCertificate(createCertificate(residentSerialNumber,"가족관계증명서"));
-        }else{
-            certificateIssue = getCertificate(certificateNumber);
-        }
-
-        FamilyCertificateDto familyCertificate = FamilyCertificateDto.builder()
+        return FamilyCertificateDto.builder()
                 .certificateIssueDate(certificateIssue.getCertificateIssueDate())
                 .certificateConfirmationNumber(certificateIssue.getCertificateConfirmationNumber())
                 .baseResident((residentRepository.findByResidentSerialNumber(residentSerialNumber)))
                 .familyResident(residentRepository.findByFamilyResident(residentSerialNumber))
                 .build();
 
-        return familyCertificate;
     }
 
 
     /**
      * 주민등록등본 발급
+     *
      * @param residentSerialNumber
-     * @param certificateNumber 있는 증명서면 가져옴
      * @return
      */
-    public ResidentCertificateDto getResidentCertificate(Integer residentSerialNumber, Long certificateNumber){
-        CertificateIssueDto certificateIssue;
-
-        if(Objects.isNull(certificateNumber)){
-            certificateIssue = getCertificate(createCertificate(residentSerialNumber,"주민등록든본"));
-        }else{
-            certificateIssue = getCertificate(certificateNumber);
-        }
+    public ResidentCertificateDto getResidentCertificate(Integer residentSerialNumber){
+        CertificateIssueDto certificateIssue = getCertificate(createCertificate(residentSerialNumber,"주민등록든본"));
 
         HouseholdCompositionDto householdComposition = householdCompositionResidentRepository.findByResident_ResidentSerialNumber(residentSerialNumber);
         if(Objects.isNull(householdComposition)){
             throw new HouseholdNotFoundException();
         }
-        ResidentCertificateDto residentCertificate = ResidentCertificateDto.builder()
+
+        return ResidentCertificateDto.builder()
                 .issueDate(certificateIssue.getCertificateIssueDate())
                 .certificateConfirmationNumber(certificateIssue.getCertificateConfirmationNumber())
                 .householdResidentName(householdComposition.getHousehold().getResident().getName())
@@ -110,7 +99,6 @@ public class CertificateIssueService {
                 .householdResidents(householdComposition.getHousehold().getHouseholdCompositionResidents())
                 .build();
 
-        return residentCertificate;
     }
 
     /**
@@ -120,9 +108,9 @@ public class CertificateIssueService {
      */
     public BirthCertificateDto getBirthCertificate(Integer residentSerialNumber){
 
-        Long certificateIssueSerialNumber = createCertificate(residentSerialNumber,"출생신고서");
+        createCertificate(residentSerialNumber,"출생신고서");
 
-        BirthCertificateDto birthCertificate = BirthCertificateDto.builder()
+        return BirthCertificateDto.builder()
                 .birthReportResident(birthDeathReportResidentRepository
                         .findByBirthDeathReportResidentPk_ResidentSerialNumberAndBirthDeathReportResidentPk_BirthDeathTypeCode
                                 (residentSerialNumber,"출생"))
@@ -130,7 +118,6 @@ public class CertificateIssueService {
                 .mother(familyRelationshipRepository.findFamilyResident(residentSerialNumber,"모")) /// familyresident- 출생자 기준
                 .build();
 
-        return birthCertificate;
     }
 
 
@@ -141,14 +128,13 @@ public class CertificateIssueService {
      */
     public BirthDeathReportResidentDto getDeathCertificate(Integer residentSerialNumber){
 
-        Long certificateIssueSerialNumber = createCertificate(residentSerialNumber,"사망신고서");
+        createCertificate(residentSerialNumber,"사망신고서");
 
-        BirthDeathReportResidentDto deathCertificate =
-                birthDeathReportResidentRepository
+
+        return birthDeathReportResidentRepository
                         .findByBirthDeathReportResidentPk_ResidentSerialNumberAndBirthDeathReportResidentPk_BirthDeathTypeCode
                                 (residentSerialNumber,"사망");
 
-        return deathCertificate;
     }
 
     /**
@@ -156,8 +142,12 @@ public class CertificateIssueService {
      * @param residentSerialNumber
      * @return 증명서 발급 목록
      */
-    public List<CertificateIssueDto> getCertificateList(Integer residentSerialNumber){
-        return certificateIssueRepository.findByResident_ResidentSerialNumber(residentSerialNumber);
+    public Page<CertificateIssueDto> getCertificateList(Pageable pageable, Integer residentSerialNumber){
+        return certificateIssueRepository.getAllByResident_ResidentSerialNumber(pageable, residentSerialNumber);
     }
+//    public List<CertificateIssueDto> getCertificateList(Integer residentSerialNumber){
+//
+//        return certificateIssueRepository.findByResident_ResidentSerialNumber(residentSerialNumber);
+//    }
 
 }

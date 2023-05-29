@@ -40,7 +40,7 @@ class ResidentRepositoryTest {
                 .registrationBaseAddress("광주 동구 조선대")
                 .build();
         residentRepository.saveAndFlush(newResident);
-        assertThat(residentRepository.existsById(123)).isNotNull();
+        assertThat(residentRepository.existsById(123)).isTrue();
     }
 
     @Test
@@ -51,7 +51,7 @@ class ResidentRepositoryTest {
 
     @Test
     void testFindByMember_Id(){
-        assertThat(residentRepository.findByMember_Id("admin").getResidentSerialNumber()).isEqualTo(8);
+        assertThat(residentRepository.findByMemberId("admin").getResidentSerialNumber()).isEqualTo(8);
     }
 
 

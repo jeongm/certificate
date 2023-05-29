@@ -30,12 +30,6 @@ Z
 ]src/main/java/com/nhnacademy/certificate/domain/requestdto/BirthDeathReportUpdateRequest.java,c/d/cd0b6c0462e44a4d848ad2ddacd351b9fa85a8a6
 Ü
 Vsrc/main/java/com/nhnacademy/certificate/domain/requestdto/HouseholdUpdateRequest.java,9/0/90ccee140c532f6d4049fda399e6c539ce139ee9
-O
-src/main/webapp/WEB-INF/web.xml,2/e/2e22b6edd746fa3dc40ad7276c87c8d87d72a392
-S
-#.idea/sonarlint/issuestore/index.pb,9/f/9fe84ebb15faf917b7def6236dba604453cc61e0
-]
--.idea/sonarlint/securityhotspotstore/index.pb,8/8/88a9255124c95bdc913197c120a8d560edc59c8e
 ó
 gsrc/main/java/com/nhnacademy/certificate/domain/requestdto/HouseholdMovementAddressRegisterRequest.java,a/9/a99343821e996331cfd36dbd7ddc9cd5d517af90
 è
@@ -46,8 +40,6 @@ Xsrc/main/java/com/nhnacademy/certificate/domain/requestdto/HouseholdRegisterReq
 esrc/main/java/com/nhnacademy/certificate/domain/requestdto/HouseholdMovementAddressUpdateRequest.java,d/2/d2fc866f9b4d5e8a0ea14ce0acea37e42a5dc4d3
 Ö
 Usrc/main/java/com/nhnacademy/certificate/service/BirthDeathReportResidentService.java,0/0/0028f04e4fc7effeca0f92e320441ff8440249d8
-v
-Fsrc/main/java/com/nhnacademy/certificate/service/HouseholdService.java,6/e/6e7dbb30c76e95cbfbcb7eb817fa9e499b6a3d5d
 è
 _src/main/java/com/nhnacademy/certificate/domain/requestdto/BirthDeathReportRegisterRequest.java,5/a/5a63bce34e565060f8050edb12305b4fe2dfc10b
 w
@@ -56,8 +48,6 @@ Gsrc/main/java/com/nhnacademy/certificate/entity/FamilyRelationship.java,2/4/24
 Psrc/test/java/com/nhnacademy/certificate/repository/HouseholdRepositoryTest.java,d/3/d3ea97186c520d911146138f5ccbd4eb9341d404
 Ç
 Rsrc/test/java/com/nhnacademy/certificate/service/FamilyCertificateServiceTest.java,b/d/bd553d456e8a294ffede9e4012597c1d0b661d7f
-Ö
-Usrc/main/java/com/nhnacademy/certificate/service/HouseholdMovementAddressService.java,b/0/b0cf05267c60e2f43b362797f78413682910aa23
 Ç
 Rsrc/main/java/com/nhnacademy/certificate/exception/HouseholdNotFoundException.java,b/4/b49dab784769ed50758d66343815d872a26e23c4
 Å

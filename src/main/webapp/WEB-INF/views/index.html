@@ -8,8 +8,8 @@
 <body>
 <th:block th:include="fragments/heading" />
 
-    <h1>증명서 발급 메인 페이지</h1>
     <table>
+        <caption><h1>증명서 발급 메인 페이지</h1></caption>
         <thead>
         <tr>
             <th>성명</th>
@@ -22,13 +22,13 @@
             <td th:text="${user.name}"></td>
             <td>
                 <ul>
-                    <li><a th:href="@{/family-certificate/{param1}(param1=${user.residentSerialNumber})}">가족관계증명서 발급</a></li>
-                    <li><a th:href="@{/resident-certificate/{param1}(param1=${user.residentSerialNumber})}">주민등록등본 발급</a></li>
-                    <li th:if="${user.isBirthReport}"><a th:href="@{/birth-certificate/{param1}(param1=${user.residentSerialNumber})}">출생신고서 발급</a></li>
-                    <li th:if="${user.isDeathReport}"><a th:href="@{/death-certificate/{param1}(param1=${user.residentSerialNumber})}">사망신고서 발급</a></li>
+                    <li><a th:href="@{/certificate/family-certificate/{param1}(param1=${user.residentSerialNumber})}">가족관계증명서 발급</a></li>
+                    <li><a th:href="@{/certificate/resident-certificate/{param1}(param1=${user.residentSerialNumber})}">주민등록등본 발급</a></li>
+                    <li th:if="${user.isBirthReport}"><a th:href="@{/certificate/birth-certificate/{param1}(param1=${user.residentSerialNumber})}">출생신고서 발급</a></li>
+                    <li th:if="${user.isDeathReport}"><a th:href="@{/certificate/death-certificate/{param1}(param1=${user.residentSerialNumber})}">사망신고서 발급</a></li>
                 </ul>
             </td>
-            <td><a th:href="@{/certificate-issue/{param1}(param1=${user.residentSerialNumber})}">발급기록</a></td>
+            <td><a th:href="@{/certificate/certificate-issue/{param1}(param1=${user.residentSerialNumber})}">발급기록</a></td>
         </tr>
         </tbody>
     </table>

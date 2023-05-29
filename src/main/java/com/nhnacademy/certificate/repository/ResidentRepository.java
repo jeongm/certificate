@@ -15,12 +15,14 @@ public interface ResidentRepository extends JpaRepository<Resident,Integer> {
 
     ResidentDto findByResidentSerialNumber(Integer serialNumber);
 
+    boolean existsByResidentRegistrationNumber(String residentRegistrationNumber);
+
     @Query(value = "select fr.family_relationship_code as familyRelationshipCode, r.name  ,r.birth_date as birthDate , r.resident_registration_number as residentRegistrationNumber , r.gender_code as genderCode " +
             "from family_relationship as fr inner join resident r on fr.family_resident_serial_number = r.resident_serial_number " +
             "where fr.base_resident_serial_number=?1", nativeQuery = true)
     List<FamilyResidentDto> findByFamilyResident(Integer baseResident);
 
-    ResidentNumberNameDto findByMember_Id(String memberId);
+    ResidentNumberNameDto findByMemberId(String memberId);
 
     Page<ResidentDto> getAllBy(Pageable pageable);
 
