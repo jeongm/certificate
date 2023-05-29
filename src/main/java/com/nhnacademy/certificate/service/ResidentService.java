@@ -1,10 +1,12 @@
 package com.nhnacademy.certificate.service;
 
-import com.nhnacademy.certificate.domain.entitydto.ResidentDto;
+import com.nhnacademy.certificate.domain.viewdto.ResidentDto;
 import com.nhnacademy.certificate.domain.requestdto.ResidentRegisterRequest;
 import com.nhnacademy.certificate.domain.requestdto.ResidentUpdateRequest;
+import com.nhnacademy.certificate.domain.viewdto.ResidentNumberNameDto;
 import com.nhnacademy.certificate.domain.viewdto.ResidentNumberNameReportDto;
 import com.nhnacademy.certificate.entity.Resident;
+import com.nhnacademy.certificate.exception.ResidentDuplicateException;
 import com.nhnacademy.certificate.exception.ResidentNotFoundException;
 import com.nhnacademy.certificate.repository.BirthDeathReportResidentRepository;
 import com.nhnacademy.certificate.repository.ResidentRepository;
@@ -32,6 +34,7 @@ public class ResidentService {
     }
 
     public void registerResident(ResidentRegisterRequest residentRegisterRequest) {
+
         Resident newResident = Resident.builder()
                 .name(residentRegisterRequest.getName())
                 .residentRegistrationNumber(residentRegisterRequest.getResidentRegistrationNumber())
@@ -43,15 +46,21 @@ public class ResidentService {
                 .deathPlaceCode(residentRegisterRequest.getDeathPlaceCode())
                 .deathPlaceAddress(residentRegisterRequest.getDeathPlaceAddress())
                 .build();
+
+        if(residentRepository.existsByResidentRegistrationNumber(newResident.getResidentRegistrationNumber())){
+            throw new ResidentDuplicateException("이미 등록된 주민번호입니다.");
+        }
+
         residentRepository.save(newResident);
     }
 
     public void updateResident(Integer residentSerialNumber, @Valid ResidentUpdateRequest residentUpdateRequest) {
-        if (Objects.isNull(residentRepository.getReferenceById(residentSerialNumber))) {
+        ResidentDto residentDto =  residentRepository.findByResidentSerialNumber(residentSerialNumber);
+
+        if (Objects.isNull(residentDto)) {
             throw new ResidentNotFoundException();
         }
 
-        ResidentDto residentDto =  residentRepository.findByResidentSerialNumber(residentSerialNumber);
 
         Resident updateResident = Resident.builder()
                 .residentSerialNumber(residentSerialNumber)
@@ -80,7 +89,8 @@ public class ResidentService {
     }
 
     public void deleteResident(Integer residentSerialNumber) {
-        if (Objects.isNull(residentRepository.getReferenceById(residentSerialNumber))) {
+        Resident resident = residentRepository.getReferenceById(residentSerialNumber);
+        if (Objects.isNull(resident)) {
             throw new ResidentNotFoundException();
         }
         residentRepository.deleteById(residentSerialNumber);
@@ -110,9 +120,23 @@ public class ResidentService {
             residents.add(residentNumberNameReport);
         }
 
-        Page<ResidentNumberNameReportDto> residentsPage = new PageImpl<>(residents, pageable, result.getTotalElements());
+        return new PageImpl<>(residents, pageable, result.getTotalElements());
+    }
 
-        return residentsPage;
+
+
+    public ResidentNumberNameReportDto getResidentNumberByMemberId(String memberId){
+        ResidentNumberNameDto resident = residentRepository.findByMemberId(memberId);
+        return ResidentNumberNameReportDto.builder()
+                .residentSerialNumber(resident.getResidentSerialNumber())
+                .name(resident.getName())
+                .isBirthReport
+                        (birthDeathReportResidentRepository.existsByTargetResident_ResidentSerialNumberAndBirthDeathReportResidentPk_BirthDeathTypeCode
+                                (resident.getResidentSerialNumber(), "출생"))
+                .isDeathReport
+                        (birthDeathReportResidentRepository.existsByTargetResident_ResidentSerialNumberAndBirthDeathReportResidentPk_BirthDeathTypeCode
+                                (resident.getResidentSerialNumber(), "사망"))
+                .build();
     }
 
 }

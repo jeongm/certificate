@@ -1,6 +1,5 @@
 package com.nhnacademy.certificate.domain.viewdto;
 
-import com.nhnacademy.certificate.domain.entitydto.HouseholdMovementAddressDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -16,7 +15,6 @@ public class ResidentCertificateDto {
 
     private String householdCompositionReasonCode;
     private LocalDate householdCompositionDate;
-//    private String currentHouseMovementAddress;
 
     private List<HouseholdMovementAddressDto> householdMovementAddresses;
     private List<HouseholdCompositionResidentsDto> householdResidents;

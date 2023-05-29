@@ -11,6 +11,9 @@ drop table if exists household;
 drop table if exists household_movement_address;
 drop table if exists household_composition_resident;
 drop table if exists certificate_issue;
+drop table if exists Members;
+drop table if exists Authoroties;
+
 
 -- 2. 테이블 생성
 create table resident
@@ -100,13 +103,23 @@ create table certificate_issue
     foreign key (resident_serial_number) references resident(resident_serial_number)
 );
 
-# CREATE TABLE IF NOT EXISTS authorities (
-#      `resident_serial_number`   VARCHAR(50)  NOT NULL,
-#      `authority`   VARCHAR(50)  NOT NULL,
-#
-#      PRIMARY KEY(`resident_serial_number`),
-#      foreign key (resident_serial_number) references resident(resident_serial_number)
-# );
+CREATE TABLE IF NOT EXISTS `Members` (
+     `member_id`   VARCHAR(50)  NOT NULL,
+     `password`         VARCHAR(100) NOT NULL,
+     resident_serial_number          int         not null,
+     `authority`   VARCHAR(50)  NOT NULL,
+     PRIMARY KEY(`member_id`),
+     foreign key (resident_serial_number) references resident(resident_serial_number),
+     foreign key (authority) references Authoroties(member_id)
+);
+
+CREATE TABLE IF NOT EXISTS `Authoroties` (
+     `member_id`   VARCHAR(50)  NOT NULL,
+     `authority`   VARCHAR(50)  NOT NULL,
+
+     PRIMARY KEY(`member_id`)
+);
+
 
 
 -- 3. resident 테이블 데이터 추가
@@ -175,3 +188,27 @@ insert into certificate_issue values(1234567891011121, 4, '가족관계증명서
 insert into certificate_issue values(9876543210987654, 4, '주민등록등본', '2021-10-25');
 
 commit;
+
+-- 10. members 테이블 추가
+insert into resident values(8, 'admin', '', '', '2000-09-14 07:22:00', '', '', null, null, null);
+
+
+insert into Members values('admin','1234', 8, 'ROLE_ADMIN');
+insert into Members values('user1','1234', 1, 'ROLE_MEMBER');
+insert into Members values('user2','1234', 2, 'ROLE_MEMBER');
+insert into Members values('user3','1234', 3, 'ROLE_MEMBER');
+insert into Members values('user4','1234', 4, 'ROLE_MEMBER');
+insert into Members values('user5','1234', 5, 'ROLE_MEMBER');
+insert into Members values('user6','1234', 6, 'ROLE_MEMBER');
+insert into Members values('user7','1234', 7, 'ROLE_MEMBER');
+
+
+-- 11. authority 테이블 추가
+insert into Authoroties values ('admin','ROLE_ADMIN');
+insert into Authoroties values ('user1','ROLE_MEMBER');
+insert into Authoroties values ('user2','ROLE_MEMBER');
+insert into Authoroties values ('user3','ROLE_MEMBER');
+insert into Authoroties values ('user4','ROLE_MEMBER');
+insert into Authoroties values ('user5','ROLE_MEMBER');
+insert into Authoroties values ('user6','ROLE_MEMBER');
+insert into Authoroties values ('user7','ROLE_MEMBER');

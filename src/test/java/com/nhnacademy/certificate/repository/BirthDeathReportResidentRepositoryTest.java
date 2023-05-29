@@ -36,4 +36,14 @@ class BirthDeathReportResidentRepositoryTest {
 
     }
 
+    @Test
+    void test(){
+        assertThat(birthDeathReportResidentRepository.findByBirthDeathReportResidentPk_ResidentSerialNumberAndBirthDeathReportResidentPk_BirthDeathTypeCode(7,"출생").getTargetResident().getName()).isEqualTo("남기석");
+    }
+
+    @Test
+    void test2() {
+        assertThat(birthDeathReportResidentRepository.findByBirthDeathReportResidentPk_ResidentSerialNumberAndBirthDeathReportResidentPk_BirthDeathTypeCode(1,"사망").getTargetResident().getName()).isEqualTo("남길동");
+    }
+
 }

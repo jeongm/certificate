@@ -1,17 +1,14 @@
 package com.nhnacademy.certificate.service;
 
-import com.nhnacademy.certificate.domain.entitydto.CertificateIssueDto;
-import com.nhnacademy.certificate.domain.entitydto.HouseholdMovementAddressDto;
-import com.nhnacademy.certificate.domain.viewdto.BirthCertificateDto;
-import com.nhnacademy.certificate.domain.viewdto.FamilyCertificateDto;
-import com.nhnacademy.certificate.domain.viewdto.HouseholdCompositionDto;
-import com.nhnacademy.certificate.domain.viewdto.ResidentCertificateDto;
+import com.nhnacademy.certificate.domain.viewdto.CertificateIssueDto;
+import com.nhnacademy.certificate.domain.viewdto.HouseholdMovementAddressDto;
+import com.nhnacademy.certificate.domain.viewdto.*;
 import com.nhnacademy.certificate.entity.CertificateIssue;
 import com.nhnacademy.certificate.exception.HouseholdNotFoundException;
-import com.nhnacademy.certificate.repository.CertificateIssueRepository;
-import com.nhnacademy.certificate.repository.HouseholdCompositionResidentRepository;
-import com.nhnacademy.certificate.repository.ResidentRepository;
+import com.nhnacademy.certificate.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +25,11 @@ public class CertificateIssueService {
     private final CertificateIssueRepository certificateIssueRepository;
     private final ResidentRepository residentRepository;
     private final HouseholdCompositionResidentRepository householdCompositionResidentRepository;
+    private final BirthDeathReportResidentRepository birthDeathReportResidentRepository;
+    private final FamilyRelationshipRepository familyRelationshipRepository;
+
+
+
     /**
      * 증명서 발급
      * @param residentSerialNumber
@@ -52,53 +54,36 @@ public class CertificateIssueService {
     /**
      *
      * @param residentSerialNumber
-     * @param certificateNumber 증명서 번호가 있을 시 가져옴, 그 외에는 발급
      * @return 가족관계증명서
      */
-    public FamilyCertificateDto getFamilyCertificate(Integer residentSerialNumber, Long certificateNumber){
-        CertificateIssueDto certificateIssue;
+    public FamilyCertificateDto getFamilyCertificate(Integer residentSerialNumber){
+        CertificateIssueDto certificateIssue= getCertificate(createCertificate(residentSerialNumber,"가족관계증명서"));
 
-        if(Objects.isNull(certificateNumber)){
-            certificateIssue = getCertificate(createCertificate(residentSerialNumber,"가족관계증명서"));
-        }else{
-            certificateIssue = getCertificate(certificateNumber);
-        }
-
-        FamilyCertificateDto familyCertificate = FamilyCertificateDto.builder()
+        return FamilyCertificateDto.builder()
                 .certificateIssueDate(certificateIssue.getCertificateIssueDate())
                 .certificateConfirmationNumber(certificateIssue.getCertificateConfirmationNumber())
                 .baseResident((residentRepository.findByResidentSerialNumber(residentSerialNumber)))
                 .familyResident(residentRepository.findByFamilyResident(residentSerialNumber))
                 .build();
 
-        return familyCertificate;
     }
 
 
     /**
      * 주민등록등본 발급
+     *
      * @param residentSerialNumber
-     * @param certificateNumber 있는 증명서면 가져옴
      * @return
      */
-    public ResidentCertificateDto getResidentCertificate(Integer residentSerialNumber, Long certificateNumber){
-        CertificateIssueDto certificateIssue;
-
-        if(Objects.isNull(certificateNumber)){
-            certificateIssue = getCertificate(createCertificate(residentSerialNumber,"주민등록든본"));
-        }else{
-            certificateIssue = getCertificate(certificateNumber);
-        }
-
-        // TODO residentSerialNumber를 기준으로 householdserialnumber뽑고
-        // TODO query 두번 날려서 세대주 전입 기록, 세대 주민 기록 household에서 리스트로 가져옴
-
+    public ResidentCertificateDto getResidentCertificate(Integer residentSerialNumber){
+        CertificateIssueDto certificateIssue = getCertificate(createCertificate(residentSerialNumber,"주민등록든본"));
 
         HouseholdCompositionDto householdComposition = householdCompositionResidentRepository.findByResident_ResidentSerialNumber(residentSerialNumber);
         if(Objects.isNull(householdComposition)){
             throw new HouseholdNotFoundException();
         }
-        ResidentCertificateDto residentCertificate = ResidentCertificateDto.builder()
+
+        return ResidentCertificateDto.builder()
                 .issueDate(certificateIssue.getCertificateIssueDate())
                 .certificateConfirmationNumber(certificateIssue.getCertificateConfirmationNumber())
                 .householdResidentName(householdComposition.getHousehold().getResident().getName())
@@ -114,7 +99,6 @@ public class CertificateIssueService {
                 .householdResidents(householdComposition.getHousehold().getHouseholdCompositionResidents())
                 .build();
 
-        return residentCertificate;
     }
 
     /**
@@ -124,25 +108,46 @@ public class CertificateIssueService {
      */
     public BirthCertificateDto getBirthCertificate(Integer residentSerialNumber){
 
-        Long certificateIssueSerialNumber = createCertificate(residentSerialNumber,"출생신고서");
-        CertificateIssueDto certificateIssue = getCertificate(certificateIssueSerialNumber);
+        createCertificate(residentSerialNumber,"출생신고서");
 
-        BirthCertificateDto birthCertificate = BirthCertificateDto.builder()
-                .certificateConfirmationNumber(certificateIssue.getCertificateConfirmationNumber())
-                .issueDate(certificateIssue.getCertificateIssueDate())
+        return BirthCertificateDto.builder()
+                .birthReportResident(birthDeathReportResidentRepository
+                        .findByBirthDeathReportResidentPk_ResidentSerialNumberAndBirthDeathReportResidentPk_BirthDeathTypeCode
+                                (residentSerialNumber,"출생"))
+                .father(familyRelationshipRepository.findFamilyResident(residentSerialNumber,"부"))// familyresident- 출생자 기준
+                .mother(familyRelationshipRepository.findFamilyResident(residentSerialNumber,"모")) /// familyresident- 출생자 기준
                 .build();
 
-        return birthCertificate;
     }
 
+
+    /**
+     * 사망신고서
+     * @param residentSerialNumber 대상자 시리얼번호
+     * @return
+     */
+    public BirthDeathReportResidentDto getDeathCertificate(Integer residentSerialNumber){
+
+        createCertificate(residentSerialNumber,"사망신고서");
+
+
+        return birthDeathReportResidentRepository
+                        .findByBirthDeathReportResidentPk_ResidentSerialNumberAndBirthDeathReportResidentPk_BirthDeathTypeCode
+                                (residentSerialNumber,"사망");
+
+    }
 
     /**
      *
      * @param residentSerialNumber
      * @return 증명서 발급 목록
      */
-    public List<CertificateIssueDto> getCertificateList(Integer residentSerialNumber){
-        return certificateIssueRepository.findByResident_ResidentSerialNumber(residentSerialNumber);
+    public Page<CertificateIssueDto> getCertificateList(Pageable pageable, Integer residentSerialNumber){
+        return certificateIssueRepository.getAllByResident_ResidentSerialNumber(pageable, residentSerialNumber);
     }
+//    public List<CertificateIssueDto> getCertificateList(Integer residentSerialNumber){
+//
+//        return certificateIssueRepository.findByResident_ResidentSerialNumber(residentSerialNumber);
+//    }
 
 }

@@ -15,6 +15,5 @@ public interface HouseholdCompositionResidentRepository extends JpaRepository<Ho
             "inner join fetch  hcr.resident r " +
             "where r.residentSerialNumber = ?1")
     HouseholdCompositionDto findByResident_ResidentSerialNumber(Integer residentSerialNumber);
-//    HouseholdNumberDto getByResident_ResidentSerialNumber(Integer residentSerialNumber);
 
 }

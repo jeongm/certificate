@@ -2,8 +2,7 @@ package com.nhnacademy.certificate.repository;
 
 import com.nhnacademy.certificate.config.RootConfig;
 import com.nhnacademy.certificate.config.WebConfig;
-import com.nhnacademy.certificate.domain.entitydto.CertificateIssueDto;
-import com.nhnacademy.certificate.domain.viewdto.FamilyCertificateDto;
+import com.nhnacademy.certificate.domain.viewdto.CertificateIssueDto;
 import com.nhnacademy.certificate.service.CertificateIssueService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

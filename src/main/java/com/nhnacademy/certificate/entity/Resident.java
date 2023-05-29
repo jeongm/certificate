@@ -46,6 +46,9 @@ public class Resident {
 //    private List<Household> households;
 
     @OneToMany(mappedBy = "resident")
-    List<CertificateIssue> certificateIssueList;
+    private List<CertificateIssue> certificateIssueList;
+
+    @OneToOne(mappedBy = "resident")
+    private Member member;
 
 }

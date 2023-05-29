@@ -40,19 +40,18 @@ class ResidentRepositoryTest {
                 .registrationBaseAddress("광주 동구 조선대")
                 .build();
         residentRepository.saveAndFlush(newResident);
-        assertThat(residentRepository.existsById(123)).isNotNull();
+        assertThat(residentRepository.existsById(123)).isTrue();
     }
 
     @Test
     void test2(){
-
-//        assertThat(residentRepository.findByFamilyResident(1).get(0).getGenderCode()).isEqualTo("남");
+        assertThat(residentRepository.findByFamilyResident(1).get(0).getGenderCode()).isEqualTo("남");
     }
 
 
     @Test
-    void testGetFamily(){
-//        assertThat(residentRepository.findByFamilyResident(2).get(0).getFamilyRelationshipCode()).isEqualTo("자녀");
+    void testFindByMember_Id(){
+        assertThat(residentRepository.findByMemberId("admin").getResidentSerialNumber()).isEqualTo(8);
     }
 
 
