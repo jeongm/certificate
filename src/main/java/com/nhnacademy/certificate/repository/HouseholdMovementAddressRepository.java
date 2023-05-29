@@ -1,6 +1,6 @@
 package com.nhnacademy.certificate.repository;
 
-import com.nhnacademy.certificate.domain.restviewdto.HouseholdMovementAddressDto;
+import com.nhnacademy.certificate.domain.viewdto.HouseholdMovementAddressDto;
 import com.nhnacademy.certificate.entity.HouseholdMovementAddress;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

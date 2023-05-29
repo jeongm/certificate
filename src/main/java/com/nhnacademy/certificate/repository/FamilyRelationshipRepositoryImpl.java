@@ -23,8 +23,8 @@ public class FamilyRelationshipRepositoryImpl extends QuerydslRepositorySupport 
                 .where(familyRelationship.familyRelationshipPk.baseResidentSerialNumber.eq(baseResidentSerialNumber))
                 .where(familyRelationship.familyRelationshipCode.eq(relationType))
                 .select(Projections.constructor(ResidentNameRegistrationNumberDto.class,
-                        targetResident.name,
-                        targetResident.residentRegistrationNumber))
+                        targetResident.name.as("name"),
+                        targetResident.residentRegistrationNumber.as("residentRegistrationNumber")))
                 .fetchOne();
     }
 }

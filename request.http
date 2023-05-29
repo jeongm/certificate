@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ###
-PUT localhost:8080/residents/8
+PUT localhost:8080/residents/9
 Content-Type: application/json
 
 {
@@ -24,7 +24,7 @@ Content-Type: application/json
 
 ### 가족관계
 ###
-POST localhost:8080/residents/8/relationship
+POST localhost:8080/residents/9/relationship
 Content-Type: application/json
 
 {
@@ -33,7 +33,7 @@ Content-Type: application/json
 }
 
 ###
-PUT localhost:8080/residents/8/relationship/1
+PUT localhost:8080/residents/9/relationship/1
 Content-Type: application/json
 
 {
@@ -41,7 +41,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE localhost:8080/residents/8/relationship/1
+DELETE localhost:8080/residents/9/relationship/1
 
 ### 출생 신고
 
@@ -49,7 +49,7 @@ POST localhost:8080/residents/2/birth
 Content-Type: application/json
 
 {
-  "targetSerialNumber" : 8,
+  "targetSerialNumber" : 9,
   "birthDeathReportDate" : "1999-07-22",
   "birthReportQualificationsCode" : "자택",
   "emailAddress" : "m@mm",
@@ -57,7 +57,7 @@ Content-Type: application/json
 }
 
 ###
-PUT localhost:8080/residents/2/birth/8
+PUT localhost:8080/residents/2/birth/9
 Content-Type: application/json
 
 {
@@ -73,7 +73,7 @@ POST localhost:8080/residents/2/death
 Content-Type: application/json
 
 {
-  "targetSerialNumber" : 8,
+  "targetSerialNumber" : 9,
   "birthDeathReportDate" : "2023-05-19",
   "deathReportQualificationsCode" : "자택",
   "emailAddress" : "m@mm",

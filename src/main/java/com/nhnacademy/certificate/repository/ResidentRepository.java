@@ -1,7 +1,8 @@
 package com.nhnacademy.certificate.repository;
 
-import com.nhnacademy.certificate.domain.restviewdto.ResidentDto;
+import com.nhnacademy.certificate.domain.viewdto.ResidentDto;
 import com.nhnacademy.certificate.domain.viewdto.FamilyResidentDto;
+import com.nhnacademy.certificate.domain.viewdto.ResidentNumberNameDto;
 import com.nhnacademy.certificate.entity.Resident;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,8 @@ public interface ResidentRepository extends JpaRepository<Resident,Integer> {
             "from family_relationship as fr inner join resident r on fr.family_resident_serial_number = r.resident_serial_number " +
             "where fr.base_resident_serial_number=?1", nativeQuery = true)
     List<FamilyResidentDto> findByFamilyResident(Integer baseResident);
+
+    ResidentNumberNameDto findByMember_Id(String memberId);
 
     Page<ResidentDto> getAllBy(Pageable pageable);
 

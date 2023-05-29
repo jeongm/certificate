@@ -1,7 +1,7 @@
 package com.nhnacademy.certificate.service;
 
-import com.nhnacademy.certificate.domain.restviewdto.CertificateIssueDto;
-import com.nhnacademy.certificate.domain.restviewdto.HouseholdMovementAddressDto;
+import com.nhnacademy.certificate.domain.viewdto.CertificateIssueDto;
+import com.nhnacademy.certificate.domain.viewdto.HouseholdMovementAddressDto;
 import com.nhnacademy.certificate.domain.viewdto.*;
 import com.nhnacademy.certificate.entity.CertificateIssue;
 import com.nhnacademy.certificate.exception.HouseholdNotFoundException;

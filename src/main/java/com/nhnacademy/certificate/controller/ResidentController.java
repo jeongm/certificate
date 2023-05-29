@@ -1,6 +1,6 @@
 package com.nhnacademy.certificate.controller;
 
-import com.nhnacademy.certificate.domain.restviewdto.CertificateIssueDto;
+import com.nhnacademy.certificate.domain.viewdto.CertificateIssueDto;
 import com.nhnacademy.certificate.domain.viewdto.*;
 import com.nhnacademy.certificate.service.CertificateIssueService;
 import com.nhnacademy.certificate.service.ResidentService;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -36,6 +37,15 @@ public class ResidentController {
         Page<ResidentNumberNameReportDto> residents = residentService.getResidents(pageable);
         model.addAttribute("residents",residents);
         return "residents";
+    }
+
+    @GetMapping("/certificate")
+    public String getUserCertificates(HttpServletRequest request,
+                                      Model model) {
+        String memberId = (String) request.getSession().getAttribute("username");
+        ResidentNumberNameReportDto resident = residentService.getResidentNumberByMemberId(memberId);
+        model.addAttribute("user",resident);
+        return "index";
     }
 
     @PostMapping("/residents/delete/{serialNumber}")
@@ -81,7 +91,8 @@ public class ResidentController {
     }
 
     @GetMapping("/certificate-issue/{serialNumber}")
-    public String getCertificateIssueList(@PathVariable("serialNumber") Integer residentSerialNumber, Model model) {
+    public String getCertificateIssueList(@PathVariable("serialNumber") Integer residentSerialNumber,
+                                          Model model) {
         List<CertificateIssueDto> issueList= issueService.getCertificateList(residentSerialNumber);
         model.addAttribute("issueList", issueList);
         model.addAttribute("resident",residentSerialNumber);

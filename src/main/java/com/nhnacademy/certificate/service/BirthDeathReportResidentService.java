@@ -1,6 +1,6 @@
 package com.nhnacademy.certificate.service;
 
-import com.nhnacademy.certificate.domain.restviewdto.BirthDeathReportResidentDto;
+import com.nhnacademy.certificate.domain.viewdto.BirthDeathReportResidentRestApiDto;
 import com.nhnacademy.certificate.domain.requestdto.BirthDeathReportRegisterRequest;
 import com.nhnacademy.certificate.domain.requestdto.BirthDeathReportUpdateRequest;
 import com.nhnacademy.certificate.entity.BirthDeathReportResident;
@@ -48,7 +48,7 @@ public class BirthDeathReportResidentService {
                                   @Valid BirthDeathReportUpdateRequest birthDeathReportRequest){
         String birthDeathTypeCode = "출생";
 
-        BirthDeathReportResidentDto birthReportResidentDto = birthDeathReportResidentRepository.findByBirthDeathReportResidentPk
+        BirthDeathReportResidentRestApiDto birthReportResidentDto = birthDeathReportResidentRepository.findByBirthDeathReportResidentPk
                 (new BirthDeathReportResident.BirthDeathReportResidentPk(targetSerialNumber,birthDeathTypeCode,reportResidentSerialNumber));
 
         if(Objects.isNull(birthReportResidentDto)) {
@@ -108,7 +108,7 @@ public class BirthDeathReportResidentService {
                                   @Valid BirthDeathReportUpdateRequest birthDeathReportRequest){
         String birthDeathTypeCode = "사망";
 
-        BirthDeathReportResidentDto deathReportResidentDto = birthDeathReportResidentRepository.findByBirthDeathReportResidentPk
+        BirthDeathReportResidentRestApiDto deathReportResidentDto = birthDeathReportResidentRepository.findByBirthDeathReportResidentPk
                 (new BirthDeathReportResident.BirthDeathReportResidentPk(targetSerialNumber,birthDeathTypeCode,reportResidentSerialNumber));
 
         if(Objects.isNull(deathReportResidentDto)) {

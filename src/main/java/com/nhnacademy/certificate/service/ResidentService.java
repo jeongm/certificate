@@ -1,8 +1,9 @@
 package com.nhnacademy.certificate.service;
 
-import com.nhnacademy.certificate.domain.restviewdto.ResidentDto;
+import com.nhnacademy.certificate.domain.viewdto.ResidentDto;
 import com.nhnacademy.certificate.domain.requestdto.ResidentRegisterRequest;
 import com.nhnacademy.certificate.domain.requestdto.ResidentUpdateRequest;
+import com.nhnacademy.certificate.domain.viewdto.ResidentNumberNameDto;
 import com.nhnacademy.certificate.domain.viewdto.ResidentNumberNameReportDto;
 import com.nhnacademy.certificate.entity.Resident;
 import com.nhnacademy.certificate.exception.ResidentNotFoundException;
@@ -113,6 +114,23 @@ public class ResidentService {
         Page<ResidentNumberNameReportDto> residentsPage = new PageImpl<>(residents, pageable, result.getTotalElements());
 
         return residentsPage;
+    }
+
+
+
+    public ResidentNumberNameReportDto getResidentNumberByMemberId(String memberId){
+        ResidentNumberNameDto resident = residentRepository.findByMember_Id(memberId);
+        ResidentNumberNameReportDto residentNumberNameReport = ResidentNumberNameReportDto.builder()
+                .residentSerialNumber(resident.getResidentSerialNumber())
+                .name(resident.getName())
+                .isBirthReport
+                        (birthDeathReportResidentRepository.existsByTargetResident_ResidentSerialNumberAndBirthDeathReportResidentPk_BirthDeathTypeCode
+                                (resident.getResidentSerialNumber(), "출생"))
+                .isDeathReport
+                        (birthDeathReportResidentRepository.existsByTargetResident_ResidentSerialNumberAndBirthDeathReportResidentPk_BirthDeathTypeCode
+                                (resident.getResidentSerialNumber(), "사망"))
+                .build();
+        return residentNumberNameReport;
     }
 
 }
