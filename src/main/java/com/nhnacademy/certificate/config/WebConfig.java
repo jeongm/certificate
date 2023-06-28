@@ -47,8 +47,6 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
         registry.addViewController("/certificate-login").setViewName("login");
         registry.addViewController("/admin/**").setViewName("admin");
         registry.addViewController("/error/403").setViewName("error403");
-
-
     }
 
     @Override
